@@ -1,11 +1,10 @@
 require('../lib/async')
+const db = require('./db')
 const fs = require('fs')
 const yaml = require('js-yaml')
 const axios = require('axios')
 const cheerio = require('cheerio')
 const Diff = require('diff')
-
-const sqlite3 = require('sqlite3').verbose()
 
 const virtualDOM = async (url) => {
   const result = await axios.get(url)
@@ -32,27 +31,26 @@ const formatMarkdown = (name, diff) => {
 }
 
 const main = async () => {
-  const db = new sqlite3.Database(`${__dirname}/../database.db`)
+  await db.connect()
 
   const file = fs.readFileSync(`${__dirname}/data/offers.yaml`, 'utf8')
   const offers = yaml.safeLoad(file)
 
-  const select = `SELECT body FROM offers WHERE offers.name = ? ORDER BY timestamp DESC`
-  const insert = `INSERT INTO offers(name, timestamp, body) VALUES(?, ?, ?)`
+  const select = `SELECT body FROM offers WHERE offers.name = $1 ORDER BY timestamp DESC LIMIT 1`
+  const insert = `INSERT INTO offers(name, timestamp, body) VALUES($1, $2, $3)`
   await offers.asyncForEach(async (offer) => {
     let oldText = ''
-    db.get(select, [offer.name], (err, row) => {
-      if (row) {
-        oldText = row.body
+    await db.query(select, [offer.name], (err, result) => {
+      if (result.rows.length > 0) {
+        oldText = result.rows[0].body
       }
     })
     const $ = await virtualDOM(offer.url)
-    const timestamp = Date.now()
     const newText = $(offer.selector).text().trim()
     if (oldText != newText) {
-      db.run(insert, [offer.name, timestamp, newText], () => {})
+      await db.query(insert, [offer.name, Date.now(), newText], () => {})
       const diff = compare(oldText, newText)
-      axios.post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_API_TOKEN}/sendMessage`, {
+      await axios.post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_API_TOKEN}/sendMessage`, {
         chat_id: process.env.TELEGRAM_CHAT_ID,
         text: formatMarkdown(offer.name, diff),
         parse_mode: 'Markdown'
@@ -60,7 +58,7 @@ const main = async () => {
     }
   })
 
-  db.close()
+  db.end()
 }
 
 main()

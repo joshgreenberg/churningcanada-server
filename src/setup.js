@@ -1,6 +1,9 @@
-const sqlite3 = require('sqlite3').verbose()
-const db = new sqlite3.Database(`${__dirname}/../database.db`)
-db.serialize(() => {
-  db.run("CREATE TABLE offers (name TEXT, timestamp TEXT, body TEXT)")
-})
-db.close()
+const db = require('./db')
+
+const main = async () => {
+  await db.connect()
+  await db.query("CREATE TABLE offers (id serial PRIMARY KEY, name TEXT, timestamp TEXT, body TEXT)")
+  await db.end()
+}
+
+main()
