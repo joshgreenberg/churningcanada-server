@@ -1,0 +1,8 @@
+-
+  name: Amex Business Edge - GCR
+  url: https://www.greatcanadianrebates.ca/details/Amex-Business-Edge/
+  selector: '#rebate b'
+-
+  name: Amex Cobalt - GCR
+  url: https://www.greatcanadianrebates.ca/details/Amex-Cobalt/
+  selector: '#rebate b'
