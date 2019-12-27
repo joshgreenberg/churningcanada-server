@@ -83,8 +83,12 @@ const sendSlack = async (offer, diff) => {
 }
 
 const dispatch = async (offer, diff) => {
-  // await sendTelegram(offer, diff)
-  await sendSlack(offer, diff)
+  if (process.env.TELEGRAM_BOT_API_TOKEN) {
+    await sendTelegram(offer, diff)
+  }
+  if (process.env.SLACK_WEBHOOK_URL) {
+    await sendSlack(offer, diff)
+  }
 }
 
 const main = async () => {
