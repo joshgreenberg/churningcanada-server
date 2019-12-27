@@ -32,7 +32,7 @@ const extractSummary = ($, selectors) => {
   return output
 }
 
-const formatMarkdown = (offer, diff) => {
+const formatTelegram = (offer, diff) => {
   let output = `*${offer.name}*\n`
   diff.forEach(part => {
     const text = part.value.replace(/([*_])/g, '')
@@ -48,16 +48,43 @@ const formatMarkdown = (offer, diff) => {
   return output
 }
 
+const formatSlack = (offer, diff) => {
+  let output = `*${offer.name}*\n`
+  diff.forEach(part => {
+    const texts = part.value.replace(/([*_])/g, '').split(`\n`)
+    if (part.removed) {
+      texts.forEach(text => {
+        output += `~${text}~\n`
+      })
+    } else if (part.added) {
+      texts.forEach(text => {
+        output += `_${text}_\n`
+      })
+    } else if (part.count > 0) {
+      output += `\n`
+    }
+  })
+  output += `<${offer.url}|View offer>`
+  return output
+}
+
 const sendTelegram = async (offer, diff) => {
   await axios.post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_API_TOKEN}/sendMessage`, {
     chat_id: process.env.TELEGRAM_CHAT_ID,
-    text: formatMarkdown(offer, diff),
+    text: formatTelegram(offer, diff),
     parse_mode: 'Markdown'
   })
 }
 
+const sendSlack = async (offer, diff) => {
+  await axios.post(process.env.SLACK_WEBHOOK_URL, {
+    text: formatSlack(offer, diff)
+  })
+}
+
 const dispatch = async (offer, diff) => {
-  await sendTelegram(offer, diff)
+  // await sendTelegram(offer, diff)
+  await sendSlack(offer, diff)
 }
 
 const main = async () => {
