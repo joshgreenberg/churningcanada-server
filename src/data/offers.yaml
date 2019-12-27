@@ -269,3 +269,11 @@
   name: Scotiabank Gold Amex
   url: https://www.scotiabank.com/ca/en/personal/credit-cards/american-express/gold-card.html
   footnotesSelector: '#legal .col-text'
+-
+  name: Scotiabank Momentum VI
+  url: https://www.scotiabank.com/ca/en/personal/credit-cards/visa/momentum-infinite-card.html
+  footnotesSelector: '#legal .col-text'
+-
+  name: Scotiabank Passport VI
+  url: https://www.scotiabank.com/ca/en/personal/credit-cards/visa/passport-infinite-card.html
+  footnotesSelector: '#legal .col-text'

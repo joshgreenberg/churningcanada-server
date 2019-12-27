@@ -44,7 +44,7 @@ const formatMarkdown = (offer, diff) => {
       output += `\n`
     }
   })
-  output += `[See offer details](${offer.url})`
+  output += `[View offer](${offer.url})`
   return output
 }
 
