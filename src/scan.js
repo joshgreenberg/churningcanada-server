@@ -131,7 +131,7 @@ const main = async () => {
     }
 
     if (oldFootnotes != newFootnotes || (newFootnotes === '' && oldSummary != newSummary)) {
-      await db.query(insert, [offer.name, Date.now(), newSummary, newFootnotes])
+      await db.query(insert, [offer.name, parseInt(Date.now()/1000), newSummary, newFootnotes])
       const diffPreview = Diff.diffSentences(oldSummary, newSummary)
       await dispatch(offer, diffPreview)
     }

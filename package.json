@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "node -r dotenv/config src/scan",
-    "setup": "node -r dotenv/config src/setup"
+    "setup": "node -r dotenv/config src/setup",
+    "clean": "node -r dotenv/config src/clean"
   },
   "author": "Josh Greenberg",
   "license": "ISC",
