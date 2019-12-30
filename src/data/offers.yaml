@@ -138,6 +138,68 @@
     - '.td-copy-container'
     - '.td-product-features li:nth-child(1)'
 -
+  name: RBC Avion VI
+  url: https://www.rbcroyalbank.com/credit-cards/travel/rbc-avion-visa-infinite.html
+  clickSelector: '#legal-content'
+  selectors:
+    - '#product-details li'
+    - '#product-params .col-3:nth-child(1)'
+  footnotesSelector: '#legal .collapse-content .disclaimer'
+-
+  name: RBC Avion VI - Aug 2018 20K
+  url: https://www.rbcroyalbank.com/credit-cards/camp/iav/1808/
+  selectors:
+    - '.banner + section h1'
+    - '.banner + section h1 + p'
+  footnotesSelector: '#collapseExample5 .table-row .table-cell:nth-child(2)'
+-
+  name: RBC Avion VI - Nov 2019 25K
+  url: https://www.rbcroyalbank.com/credit-cards/camp/iav/19112/
+  selectors:
+    - '.banner + section h1'
+    - '.banner + section h1 + p'
+  footnotesSelector: '#collapseExample5 .table-row .table-cell:nth-child(2)'
+-
+  name: RBC Avion VIP
+  url: https://www.rbcroyalbank.com/credit-cards/travel/rbc-avion-visa-infinite-privilege.html
+  clickSelector: '#legal-content'
+  selectors:
+    - '#product-details li'
+    - '#product-params .col-3:nth-child(1)'
+  footnotesSelector: '#legal .collapse-content .disclaimer'
+-
+  name: RBC Avion VI Business
+  url: https://www.rbcroyalbank.com/business/credit-cards/small-business-credit-cards/avion-visa-infinite-business.html
+  clickSelector: '#legal-content'
+  selectors:
+    - '#product-details li'
+    - '#product-params .col-3:nth-child(1)'
+  footnotesSelector: '#legal .collapse-content .disclaimer'
+-
+  name: RBC British Airways VI
+  url: https://www.rbcroyalbank.com/credit-cards/travel/rbc-british-airways-visa-infinite.html
+  clickSelector: '#legal-content'
+  selectors:
+    - '#product-details li'
+    - '#product-params .col-3:nth-child(1)'
+  footnotesSelector: '#legal .collapse-content .disclaimer'
+-
+  name: RBC Cathay Pacific
+  url: https://www.rbcroyalbank.com/credit-cards/travel/rbc-cathay-pacific-visa-platinum.html
+  clickSelector: '#legal-content'
+  selectors:
+    - '#product-details li'
+    - '#product-params .col-3:nth-child(1)'
+  footnotesSelector: '#legal .collapse-content .disclaimer'
+-
+  name: RBC Westjet WE
+  url: https://www.rbcroyalbank.com/credit-cards/travel/westjet-rbc-world-elite-mastercard.html
+  clickSelector: '#legal-content'
+  selectors:
+    - '#product-details li'
+    - '#product-params .col-3:nth-child(1)'
+  footnotesSelector: '#legal .collapse-content .disclaimer'
+-
   name: Scotiabank Gold Amex
   url: https://www.scotiabank.com/ca/en/personal/credit-cards/american-express/gold-card.html
   footnotesSelector: '#legal .col-text'
