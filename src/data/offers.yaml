@@ -70,6 +70,10 @@
     - '.why-amex .key-benefits-column:nth-child(1) .description_text'
     - '.product-variables-features > .product-feature:nth-child(2)'
 -
+  name: BMO (all WE cards)
+  url: https://www.bmo.com/popups/main/personal/credit-cards/terms-and-conditions-en.html
+  footnotesSelector: '.mc-sweep-complete li, .fakenote'
+-
   name: CIBC Aerogold VI
   url: https://www.cibc.com/en/personal-banking/credit-cards/all-credit-cards/aerogold-visa-infinite-card.html
   footnotesSelector: '.terms-content-wrapper p'
