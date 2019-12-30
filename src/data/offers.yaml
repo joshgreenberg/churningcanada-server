@@ -70,6 +70,51 @@
     - '.why-amex .key-benefits-column:nth-child(1) .description_text'
     - '.product-variables-features > .product-feature:nth-child(2)'
 -
+  name: AMEX Aeroplan Gold
+  url: https://www.americanexpress.com/ca/en/charge-cards/aeroplan-gold-card/
+  clickSelector: '.card-detail__eligibility .view-more'
+  footnotesSelector: 'ol.orderlist li'
+  selectors:
+    - '.card-detail__basic__welcome'
+    - '.why-amex__col'
+    - '.product-variables-features > .product-feature:nth-child(2)'
+-
+  name: AMEX Aeroplan Platinum
+  url: https://www.americanexpress.com/ca/en/charge-cards/aeroplan-platinum-card/
+  clickSelector: '.card-detail__eligibility .view-more'
+  footnotesSelector: 'ol.orderlist li'
+  selectors:
+    - '.card-detail__basic__welcome'
+    - '.why-amex__col'
+    - '.product-variables-features > .product-feature:nth-child(2)'
+-
+  name: AMEX Aeroplan Reserve
+  url: https://www.americanexpress.com/ca/en/credit-cards/aeroplan-reserve-credit-card/
+  clickSelector: '.card-detail__eligibility .view-more'
+  footnotesSelector: 'ol.orderlist li'
+  selectors:
+    - '.card-detail__basic__welcome'
+    - '.why-amex__col'
+    - '.product-variables-features > .product-feature:nth-child(2)'
+-
+  name: AMEX Air Miles Platinum
+  url: https://www.americanexpress.com/ca/en/credit-cards/air-miles-platinum-credit-card/
+  clickSelector: '.card-detail__eligibility .view-more'
+  footnotesSelector: 'ol.orderlist li'
+  selectors:
+    - '.card-detail__basic__welcome'
+    - '.why-amex__col'
+    - '.product-variables-features > .product-feature:nth-child(2)'
+-
+  name: AMEX Air Miles Reserve
+  url: https://www.americanexpress.com/ca/en/credit-cards/air-miles-reserve-credit-card/
+  clickSelector: '.card-detail__eligibility .view-more'
+  footnotesSelector: 'ol.orderlist li'
+  selectors:
+    - '.card-detail__basic__welcome'
+    - '.why-amex__col'
+    - '.product-variables-features > .product-feature:nth-child(2)'
+-
   name: BMO (all WE cards)
   url: https://www.bmo.com/popups/main/personal/credit-cards/terms-and-conditions-en.html
   footnotesSelector: '.mc-sweep-complete li, .fakenote'
@@ -124,6 +169,11 @@
     - '.featurebannercontainer .banner-body-copy'
     - '#blq-content > .layoutcontainer:nth-child(7) .row .column:nth-child(1)'
 -
+  name: HSBC Rewards WE
+  url: https://www.hsbc.ca/credit-cards/products/world-elite/
+  footnotesSelector: '#pp_rel_richtext_1 p'
+  selector: '#pp_main_creditCardProductModule_1'
+-
   name: MBNA Alaska PP
   url: https://www.mbna.ca/en/credit-cards/travel/alaska-airlines-mastercard/
   footnotesSelector: '#platinum p'
@@ -137,6 +187,26 @@
   selectors:
     - '.td-copy-container'
     - '.td-product-features li:nth-child(1)'
+-
+  name: MBNA Best Western
+  url: https://www.mbna.ca/en/credit-cards/travel/best-western-mastercard/
+  footnotesSelector: '#bestWestern p'
+  selectors:
+    - '.td-copy-container'
+    - '.td-product-features li:nth-child(1)'
+-
+  name: MBNA Rewards WE
+  url: https://www.mbna.ca/en/credit-cards/rewards/mbna-rewards-world-elite-mastercard/
+  footnotesSelector: '#RewardsWorldEliteEN p'
+  selectors:
+    - '.td-copy-container'
+    - '.td-product-features li:nth-child(1)'
+-
+  name: National Bank Rewards WE
+  url: https://www.nbc.ca/personal/mastercard-credit-cards/world-elite.html
+  clickSelector: 'a[name=notes]'
+  footnotesSelector: '.collapse-container-open p'
+  selector: '.bncr-banner'
 -
   name: RBC Avion VI
   url: https://www.rbcroyalbank.com/credit-cards/travel/rbc-avion-visa-infinite.html
@@ -258,6 +328,10 @@
 -
   name: AMEX Aeroplan Platinum - GCR
   url: https://www.greatcanadianrebates.ca/details/Amex-AeroplanPlus-Platinum/
+  selector: '#rebate b'
+-
+  name: AMEX Air Miles Platinum - GCR
+  url: https://www.greatcanadianrebates.ca/details/Amex-AirMilesPlatinum/
   selector: '#rebate b'
 -
   name: AMEX Bonvoy - GCR
