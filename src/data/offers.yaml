@@ -204,7 +204,7 @@
 -
   name: National Bank Rewards WE
   url: https://www.nbc.ca/personal/mastercard-credit-cards/world-elite.html
-  clickSelector: 'a[name=notes]'
+  clickSelector: '.aem-Grid .websites_collapse_component:nth-child(8) .allAreaClickable'
   footnotesSelector: '.collapse-container-open p'
   selector: '.bncr-banner'
 -
@@ -240,10 +240,7 @@
 -
   name: RBC Avion VI Business
   url: https://www.rbcroyalbank.com/business/credit-cards/small-business-credit-cards/avion-visa-infinite-business.html
-  clickSelector: '#legal-content'
-  selectors:
-    - '#product-details li'
-    - '#product-params .col-3:nth-child(1)'
+  clickSelector: '.collapse-toggle'
   footnotesSelector: '#legal .collapse-content .disclaimer'
 -
   name: RBC British Airways VI
