@@ -99,19 +99,12 @@ const main = async () => {
   const file = fs.readFileSync(`${__dirname}/data/offers.yaml`, 'utf8')
   const offers = yaml.safeLoad(file)
 
-  const select = `SELECT summary, footnotes FROM offers WHERE offers.name = $1 ORDER BY timestamp DESC LIMIT 1`
+  const select = `SELECT summary, footnotes FROM offers WHERE offers.name = $1 ORDER BY timestamp DESC LIMIT 3`
   const insert = `INSERT INTO offers(name, timestamp, summary, footnotes) VALUES($1, $2, $3, $4)`
   await offers.asyncForEach(async (offer) => {
-    let oldFootnotes = ''
-    let oldSummary = ''
     let newFootnotes = ''
     let newSummary = ''
-    await db.query(select, [offer.name], (err, result) => {
-      if (result.rows.length > 0) {
-        oldSummary = result.rows[0].summary
-        oldFootnotes = result.rows[0].footnotes
-      }
-    })
+    const oldOffers = (await db.query(select, [offer.name])).rows
 
     const $ = await virtualDOM(offer, page)
     if (offer.footnotesSelector) {
@@ -125,13 +118,14 @@ const main = async () => {
     if (newFootnotes === '') {
       const selectors = offer.selectors || [offer.selector].filter(x => x)
       newSummary = extractSummary($, selectors)
-    } else if (oldFootnotes != newFootnotes) {
+    } else if (!oldOffers.map(o => o.footnotes).includes(newFootnotes)) {
       const selectors = offer.selectors || [offer.selector].filter(x => x)
       newSummary = extractSummary($, selectors)
     }
 
-    if (oldFootnotes != newFootnotes || (newFootnotes === '' && oldSummary != newSummary)) {
+    if (!oldOffers.map(o => o.footnotes).includes(newFootnotes) || (newFootnotes === '' && !oldOffers.map(o => o.summary).includes(newSummary))) {
       await db.query(insert, [offer.name, parseInt(Date.now()/1000), newSummary, newFootnotes])
+      const oldSummary = oldOffers.length > 0 ? oldOffers[0].summary : ''
       const diffPreview = Diff.diffSentences(oldSummary, newSummary)
       await dispatch(offer, diffPreview)
     }
