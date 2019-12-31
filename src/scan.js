@@ -93,7 +93,9 @@ const dispatch = async (offer, diff) => {
 
 const main = async () => {
   await db.connect()
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({
+    args: process.env.PUPPETEER_ARGS.split(' ')
+  })
   const page = await browser.newPage()
 
   const file = fs.readFileSync(`${__dirname}/data/offers.yaml`, 'utf8')
@@ -102,32 +104,35 @@ const main = async () => {
   const select = `SELECT summary, footnotes FROM offers WHERE offers.name = $1 ORDER BY timestamp DESC LIMIT 3`
   const insert = `INSERT INTO offers(name, timestamp, summary, footnotes) VALUES($1, $2, $3, $4)`
   await offers.asyncForEach(async (offer) => {
-    let newFootnotes = ''
-    let newSummary = ''
-    const oldOffers = (await db.query(select, [offer.name])).rows
+    try {
+      let newFootnotes = ''
+      let newSummary = ''
+      const oldOffers = (await db.query(select, [offer.name])).rows
 
-    const $ = await virtualDOM(offer, page)
-    if (offer.footnotesSelector) {
-      const footnotes = []
-      $(offer.footnotesSelector).each((i, el) => {
-        footnotes.push($(el).text().trim())
-      })
-      newFootnotes = footnotes.join("\n")
-    }
+      const $ = await virtualDOM(offer, page)
+      if (offer.footnotesSelector) {
+        const footnotes = []
+        $(offer.footnotesSelector).each((i, el) => {
+          footnotes.push($(el).text().trim())
+        })
+        newFootnotes = footnotes.join("\n")
+      }
 
-    if (newFootnotes === '') {
-      const selectors = offer.selectors || [offer.selector].filter(x => x)
-      newSummary = extractSummary($, selectors)
-    } else if (!oldOffers.map(o => o.footnotes).includes(newFootnotes)) {
-      const selectors = offer.selectors || [offer.selector].filter(x => x)
-      newSummary = extractSummary($, selectors)
-    }
+      if (newFootnotes === '') {
+        const selectors = offer.selectors || [offer.selector].filter(x => x)
+        newSummary = extractSummary($, selectors)
+      } else if (!oldOffers.map(o => o.footnotes).includes(newFootnotes)) {
+        const selectors = offer.selectors || [offer.selector].filter(x => x)
+        newSummary = extractSummary($, selectors)
+      }
 
-    if (!oldOffers.map(o => o.footnotes).includes(newFootnotes) || (newFootnotes === '' && !oldOffers.map(o => o.summary).includes(newSummary))) {
-      await db.query(insert, [offer.name, parseInt(Date.now()/1000), newSummary, newFootnotes])
-      const oldSummary = oldOffers.length > 0 ? oldOffers[0].summary : ''
-      const diffPreview = Diff.diffSentences(oldSummary, newSummary)
-      await dispatch(offer, diffPreview)
+      if (!oldOffers.map(o => o.footnotes).includes(newFootnotes) || (newFootnotes === '' && !oldOffers.map(o => o.summary).includes(newSummary))) {
+        await db.query(insert, [offer.name, parseInt(Date.now()/1000), newSummary, newFootnotes])
+        const oldSummary = oldOffers.length > 0 ? oldOffers[0].summary : ''
+        const diffPreview = Diff.diffSentences(oldSummary, newSummary)
+        await dispatch(offer, diffPreview)
+      }
+    } catch (err) {
     }
   })
 
