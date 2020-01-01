@@ -311,7 +311,7 @@
   footnotesSelector: '#TermsCond p'
   selector: '.td-product-info-right'
 -
-  name: TD FCT VI
+  name: TD First Class Travel VI
   url: https://www.td.com/ca/en/personal-banking/products/credit-cards/travel-rewards/first-class-travel-visa-infinite-card/
   footnotesSelector: '#TermsCond p'
   selector: '.td-product-info-right'
@@ -326,7 +326,7 @@
   footnotesSelector: '#TermsCond p'
   selector: '.td-product-info-right'
 -
-  name: TD AP Business
+  name: TD Aeroplan Business
   url: https://www.td.com/ca/en/business-banking/small-business/credit-cards/aeroplan-visa-business-card/
   footnotesSelector: '#TermsCond p'
   selector: '.td-product-info-right'
@@ -392,7 +392,7 @@
   url: https://www.greatcanadianrebates.ca/details/MBNA-Alaska-Airlines/
   selector: '#rebate b'
 -
-  name: MBNA BW - GCR
+  name: MBNA Best Western - GCR
   url: https://www.greatcanadianrebates.ca/details/MBNA-BestWestern/
   selector: '#rebate b'
 -
