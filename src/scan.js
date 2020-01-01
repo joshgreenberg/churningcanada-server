@@ -8,9 +8,15 @@ const puppeteer = require('puppeteer')
 const Diff = require('diff')
 
 const virtualDOM = async (offer, page) => {
-  if (offer.clickSelector) {
+  if (offer.clickSelector || offer.hoverSelector) {
     await page.goto(offer.url)
-    await page.click(offer.clickSelector)
+    if (offer.clickSelector) {
+      await page.click(offer.clickSelector)
+    }
+    if (offer.hoverSelector) {
+      await page.hover(offer.hoverSelector).catch(() => {})
+      await page.waitFor(200)
+    }
     return cheerio.load(await page.content())
   } else {
     const result = await axios.get(offer.url)
@@ -133,8 +139,7 @@ const main = async () => {
         await dispatch(offer, diffPreview)
       }
     } catch (err) {
-      console.log(`Unable to grab ${offer.name}`)
-      console.log(err.message)
+      console.log(`Unable to grab ${offer.name}: ${err.message}`)
     }
   })
 
