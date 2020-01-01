@@ -133,6 +133,7 @@ const main = async () => {
         await dispatch(offer, diffPreview)
       }
     } catch (err) {
+      console.log(err)
     }
   })
 
