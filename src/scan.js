@@ -133,7 +133,8 @@ const main = async () => {
         await dispatch(offer, diffPreview)
       }
     } catch (err) {
-      console.log(err)
+      console.log(`Unable to grab ${offer.name}`)
+      console.log(err.message)
     }
   })
 
