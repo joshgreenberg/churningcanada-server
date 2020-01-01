@@ -287,14 +287,22 @@
   name: Scotiabank Gold Amex
   url: https://www.scotiabank.com/ca/en/personal/credit-cards/american-express/gold-card.html
   footnotesSelector: '#legal .col-text'
+  selectors:
+    - '#additional-content .section--content .offer .headline'
+    - '#amexgoldofferdetails .cmp-text'
 -
   name: Scotiabank Momentum VI
   url: https://www.scotiabank.com/ca/en/personal/credit-cards/visa/momentum-infinite-card.html
   footnotesSelector: '#legal .col-text'
+  selector: '#additional-content .section--content .offer .headline'
 -
   name: Scotiabank Passport VI
   url: https://www.scotiabank.com/ca/en/personal/credit-cards/visa/passport-infinite-card.html
   footnotesSelector: '#legal .col-text'
+  selectors:
+    - '#product-header-title .bns--title small'
+    - '#product-header-cards .bns--card.f1'
+    - '#product-header-cards .bns--card.f2'
 -
   name: TD Aeroplan Platinum
   url: https://www.td.com/ca/en/personal-banking/products/credit-cards/aeroplan/aeroplan-visa-platinum-card/
@@ -396,16 +404,16 @@
   url: https://www.greatcanadianrebates.ca/details/MBNA-BestWestern/
   selector: '#rebate b'
 -
+  name: Scotiabank Gold Amex - GCR
+  url: https://www.greatcanadianrebates.ca/details/Scotia-Amex-Gold/
+  selector: '#rebate b'
+-
   name: Scotiabank Momentum VI - GCR
   url: https://www.greatcanadianrebates.ca/details/Scotia-Infinite/
   selector: '#rebate b'
 -
   name: Scotiabank Passport VI - GCR
   url: https://www.greatcanadianrebates.ca/details/Scotiabank-Passport-Infinite/
-  selector: '#rebate b'
--
-  name: Scotiabank Gold Amex - GCR
-  url: https://www.greatcanadianrebates.ca/details/Scotia-Amex-Gold/
   selector: '#rebate b'
 -
   name: Tangerine World - GCR

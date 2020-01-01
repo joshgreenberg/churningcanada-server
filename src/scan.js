@@ -11,7 +11,8 @@ const virtualDOM = async (offer, page) => {
   if (offer.clickSelector || offer.hoverSelector) {
     await page.goto(offer.url)
     if (offer.clickSelector) {
-      await page.click(offer.clickSelector)
+      await page.click(offer.clickSelector).catch(() => {})
+      await page.waitFor(200)
     }
     if (offer.hoverSelector) {
       await page.hover(offer.hoverSelector).catch(() => {})
