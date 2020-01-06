@@ -133,7 +133,9 @@ const main = async () => {
         newSummary = extractSummary($, selectors)
       }
 
-      if (!oldOffers.map(o => o.footnotes).includes(newFootnotes) || (newFootnotes === '' && !oldOffers.map(o => o.summary).includes(newSummary))) {
+      if (newFootnotes == '' && newSummary == '') {
+        console.log(`Unable to grab ${offer.name}: blank page`)
+      } else if (!oldOffers.map(o => o.footnotes).includes(newFootnotes) || (newFootnotes === '' && !oldOffers.map(o => o.summary).includes(newSummary))) {
         await db.query(insert, [offer.name, parseInt(Date.now()/1000), newSummary, newFootnotes])
         const oldSummary = oldOffers.length > 0 ? oldOffers[0].summary : ''
         const diffPreview = Diff.diffSentences(oldSummary, newSummary)
