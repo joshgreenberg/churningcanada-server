@@ -392,6 +392,14 @@
   url: https://www.greatcanadianrebates.ca/details/Amex-SimplyCash-Preferred/
   selector: '#rebate b'
 -
+  name: CIBC Aventura VI - GCR
+  url: https://www.greatcanadianrebates.ca/details/CIBC-Aventura-Visa-Infinite/
+  selector: '#rebate b'
+-
+  name: CIBC Dividend VI - GCR
+  url: https://www.greatcanadianrebates.ca/details/CIBC-Dividend-Visa-Infinite/
+  selector: '#rebate b'
+-
   name: MBNA Alaska PP - GCR
   url: https://www.greatcanadianrebates.ca/details/MBNA-Alaska-Airlines-Platnium/
   selector: '#rebate b'
