@@ -5,6 +5,7 @@ const cors = require('cors')
 const fs = require('fs')
 const yaml = require('js-yaml')
 const db = require('./db')
+db.connect()
 
 const PORT = 3000
 
@@ -21,9 +22,6 @@ app.use(cors())
 app.use(bodyParser.json())
 
 app.get('/', async (req, res) => {
-  if (!db._connected) {
-    await db.connect()
-  }
   const {rows: offers} = await db.query(
     'SELECT * FROM offers ORDER BY timestamp DESC'
   )
