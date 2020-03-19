@@ -7,7 +7,7 @@ const yaml = require('js-yaml')
 const db = require('./db')
 db.connect()
 
-const PORT = 3000
+const PORT = process.env.PORT || 3000
 
 const stringToSlug = str => str.replace(/\s+/g, '-').replace(/-+/g, '-')
 
