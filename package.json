@@ -8,8 +8,7 @@
     "dev": "nodemon bin/dev",
     "prettier": "npx prettier --write 'src/**/*.{js,ts}'",
     "scan": "node -r dotenv/config bin/scan",
-    "setup": "node -r dotenv/config bin/setup",
-    "start": "node src/server"
+    "setup": "node -r dotenv/config bin/setup"
   },
   "author": "Josh Greenberg",
   "license": "ISC",
