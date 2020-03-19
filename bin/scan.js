@@ -1,5 +1,5 @@
 require('../lib/async')
-const db = require('./db')
+const db = require('../src/db')
 const fs = require('fs')
 const yaml = require('js-yaml')
 const axios = require('axios')
@@ -33,7 +33,7 @@ const extractSummary = ($, selectors) => {
     $selector.find('.subScript').remove()
     const extractedText = $selector.text().trim()
     if (extractedText) {
-      output += extractedText.replace(/(\s\s+)/g, "\n")
+      output += extractedText.replace(/(\s\s+)/g, '\n')
     }
   })
   return output
@@ -76,16 +76,19 @@ const formatSlack = (offer, diff) => {
 }
 
 const sendTelegram = async (offer, diff) => {
-  await axios.post(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_API_TOKEN}/sendMessage`, {
-    chat_id: process.env.TELEGRAM_CHAT_ID,
-    text: formatTelegram(offer, diff),
-    parse_mode: 'Markdown'
-  })
+  await axios.post(
+    `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_API_TOKEN}/sendMessage`,
+    {
+      chat_id: process.env.TELEGRAM_CHAT_ID,
+      text: formatTelegram(offer, diff),
+      parse_mode: 'Markdown',
+    }
+  )
 }
 
 const sendSlack = async (offer, diff) => {
   await axios.post(process.env.SLACK_WEBHOOK_URL, {
-    text: formatSlack(offer, diff)
+    text: formatSlack(offer, diff),
   })
 }
 
@@ -101,16 +104,16 @@ const dispatch = async (offer, diff) => {
 const main = async () => {
   await db.connect()
   const browser = await puppeteer.launch({
-    args: process.env.PUPPETEER_ARGS.split(' ')
+    args: process.env.PUPPETEER_ARGS.split(' '),
   })
   const page = await browser.newPage()
 
-  const file = fs.readFileSync(`${__dirname}/data/offers.yaml`, 'utf8')
+  const file = fs.readFileSync(`${__dirname}/../src/data/offers.yaml`, 'utf8')
   const offers = yaml.safeLoad(file)
 
   const select = `SELECT summary, footnotes FROM offers WHERE offers.name = $1 ORDER BY timestamp DESC LIMIT 3`
   const insert = `INSERT INTO offers(name, timestamp, summary, footnotes) VALUES($1, $2, $3, $4)`
-  await offers.asyncForEach(async (offer) => {
+  await offers.asyncForEach(async offer => {
     try {
       let newFootnotes = ''
       let newSummary = ''
@@ -120,9 +123,13 @@ const main = async () => {
       if (offer.footnotesSelector) {
         const footnotes = []
         $(offer.footnotesSelector).each((i, el) => {
-          footnotes.push($(el).text().trim())
+          footnotes.push(
+            $(el)
+              .text()
+              .trim()
+          )
         })
-        newFootnotes = footnotes.join("\n")
+        newFootnotes = footnotes.join('\n')
       }
 
       if (newFootnotes === '') {
@@ -135,8 +142,17 @@ const main = async () => {
 
       if (newFootnotes == '' && newSummary == '') {
         console.log(`Unable to grab ${offer.name}: blank page`)
-      } else if (!oldOffers.map(o => o.footnotes).includes(newFootnotes) || (newFootnotes === '' && !oldOffers.map(o => o.summary).includes(newSummary))) {
-        await db.query(insert, [offer.name, parseInt(Date.now()/1000), newSummary, newFootnotes])
+      } else if (
+        !oldOffers.map(o => o.footnotes).includes(newFootnotes) ||
+        (newFootnotes === '' &&
+          !oldOffers.map(o => o.summary).includes(newSummary))
+      ) {
+        await db.query(insert, [
+          offer.name,
+          parseInt(Date.now() / 1000),
+          newSummary,
+          newFootnotes,
+        ])
         const oldSummary = oldOffers.length > 0 ? oldOffers[0].summary : ''
         const diffPreview = Diff.diffSentences(oldSummary, newSummary)
         await dispatch(offer, diffPreview)
