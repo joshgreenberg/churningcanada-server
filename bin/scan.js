@@ -14,11 +14,11 @@ const virtualDOM = async (offer, page) => {
     await page.goto(offer.url)
     if (offer.clickSelector) {
       await page.click(offer.clickSelector).catch(() => {})
-      await page.waitFor(200)
+      await page.waitFor(1000)
     }
     if (offer.hoverSelector) {
       await page.hover(offer.hoverSelector).catch(() => {})
-      await page.waitFor(200)
+      await page.waitFor(1000)
     }
     return cheerio.load(await page.content())
   } else {
@@ -145,8 +145,13 @@ const main = async () => {
         newSummary = extractSummary($, selectors)
       }
 
-      if (newFootnotes == '' && newSummary == '') {
-        console.log(`Unable to grab ${offer.name}: blank page`)
+      if (newFootnotes === '') {
+        await db.query(insert, [
+          offer.name,
+          parseInt(Date.now() / 1000),
+          '',
+          '',
+        ])
       } else if (
         !oldOffers.map(o => o.footnotes).includes(newFootnotes) ||
         (newFootnotes === '' &&

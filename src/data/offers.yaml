@@ -193,17 +193,13 @@
 -
   name: MBNA Alaska PP
   url: https://www.mbna.ca/en/credit-cards/travel/alaska-airlines-mastercard/
-  footnotesSelector: '#platinum p'
-  selectors:
-    - '.td-copy-container'
-    - '.td-product-features li:nth-child(1)'
+  footnotesSelector: '#accordion-platinum1 li, #platinum p'
+  selector: '#accordion-platinum1'
 -
   name: MBNA Alaska WE
   url: https://www.mbna.ca/en/credit-cards/travel/alaska-airlines-world-elite-mastercard/
-  footnotesSelector: '#worldelite p'
-  selectors:
-    - '.td-copy-container'
-    - '.td-product-features li:nth-child(1)'
+  footnotesSelector: '#accordion-worldelite1 li, #worldelite p'
+  selector: '#accordion-worldelite1'
 -
   name: MBNA Best Western
   url: https://www.mbna.ca/en/credit-cards/travel/best-western-mastercard/
@@ -221,8 +217,8 @@
 -
   name: National Bank Rewards WE
   url: https://www.nbc.ca/personal/mastercard-credit-cards/world-elite.html
-  clickSelector: '.aem-Grid .websites_collapse_component:nth-child(8) .allAreaClickable'
-  footnotesSelector: '.collapse-container-open p'
+  clickSelector: '.aem-Grid .websites_collapse_component:last-child .allAreaClickable'
+  footnotesSelector: '.aem-Grid .websites_collapse_collapse_collapseStyle1:last-child p'
   selector: '.bncr-banner'
 -
   name: RBC Avion VI
@@ -249,16 +245,20 @@
 -
   name: RBC Avion VIP
   url: https://www.rbcroyalbank.com/credit-cards/travel/rbc-avion-visa-infinite-privilege.html
-  clickSelector: '#legal-content'
   selectors:
     - '#product-details li'
     - '#product-params .col-3:nth-child(1)'
-  footnotesSelector: '#legal .collapse-content .disclaimer'
+  footnotesSelector: '#legalcollapse-avioninfiniteprivilege .collapse-content .disclaimer'
+-
+  name: RBC Avion Business
+  url: https://www.rbcroyalbank.com/business/credit-cards/small-business-credit-cards/rbc-avion-visa-business.html
+  clickSelector: '#disclaimer .collapse-toggle'
+  footnotesSelector: '#collapse-legal .collapse-content .table-cell'
 -
   name: RBC Avion VI Business
   url: https://www.rbcroyalbank.com/business/credit-cards/small-business-credit-cards/avion-visa-infinite-business.html
-  clickSelector: '.collapse-toggle'
-  footnotesSelector: '#legal .collapse-content .disclaimer'
+  clickSelector: '#disclaimer .collapse-toggle'
+  footnotesSelector: '#collapse-legal .collapse-content .table-cell'
 -
   name: RBC British Airways VI
   url: https://www.rbcroyalbank.com/credit-cards/travel/rbc-british-airways-visa-infinite.html
@@ -298,11 +298,16 @@
 -
   name: Scotiabank Passport VI
   url: https://www.scotiabank.com/ca/en/personal/credit-cards/visa/passport-infinite-card.html
-  footnotesSelector: '#legal .col-text'
+  footnotesSelector: '#legal .legal-text-item'
   selectors:
     - '#product-header-title .bns--title small'
     - '#product-header-cards .bns--card.f1'
     - '#product-header-cards .bns--card.f2'
+-
+  name: Tangerine World
+  url: https://www.tangerine.ca/en/products/spending/creditcard/world/
+  footnotesSelector: '.tngDisclaimer p'
+  selector: '#interact_productDetailInsightsCard'
 -
   name: TD Aeroplan Platinum
   url: https://www.td.com/ca/en/personal-banking/products/credit-cards/aeroplan/aeroplan-visa-platinum-card/
@@ -321,7 +326,7 @@
 -
   name: TD First Class Travel VI
   url: https://www.td.com/ca/en/personal-banking/products/credit-cards/travel-rewards/first-class-travel-visa-infinite-card/
-  footnotesSelector: '#TermsCond p'
+  footnotesSelector: '#firstclasstravelvisamodal01 p'
   selector: '.td-product-info-right'
 -
   name: TD Platinum Travel
@@ -341,8 +346,13 @@
 -
   name: TD Travel Business
   url: https://www.td.com/ca/en/business-banking/small-business/credit-cards/business-travel-visa-card/
-  footnotesSelector: '#TermsCond p'
+  footnotesSelector: '#businesstravelvisamodal02 p'
   selector: '.td-product-info-right'
+-
+  name: TD Aeroplan VI - Spring 35K
+  url: https://aeroplan.td.com/
+  footnotesSelector: '#termsConditions p'
+  selector: '.td-product-info-row'
 -
   name: AMEX Aeroplan Gold - GCR
   url: https://www.greatcanadianrebates.ca/details/Amex-AeroplanPlusGold/
