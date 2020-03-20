@@ -96,7 +96,7 @@ const sendSlack = async (offer, diff) => {
   })
 }
 
-const dispatch = async (offer, diff) => {
+const dispatch = async (offer, diff = '') => {
   if (process.env.TELEGRAM_BOT_API_TOKEN) {
     await sendTelegram(offer, diff)
   }
@@ -115,7 +115,7 @@ const main = async () => {
   const file = fs.readFileSync(`${__dirname}/../src/data/offers.yaml`, 'utf8')
   const offers = yaml.safeLoad(file)
 
-  const select = `SELECT summary, footnotes FROM offers WHERE offers.name = $1 ORDER BY timestamp DESC LIMIT 3`
+  const select = `SELECT summary, footnotes FROM offers WHERE offers.name = $1 ORDER BY timestamp DESC LIMIT 1`
   const insert = `INSERT INTO offers(name, timestamp, summary, footnotes) VALUES($1, $2, $3, $4)`
   await offers.asyncForEach(async offer => {
     try {
@@ -158,9 +158,9 @@ const main = async () => {
           newSummary,
           newFootnotes,
         ])
-        const oldSummary = oldOffers.length > 0 ? oldOffers[0].summary : ''
-        const diffPreview = Diff.diffSentences(oldSummary, newSummary)
-        await dispatch(offer, diffPreview)
+        // const oldSummary = oldOffers.length > 0 ? oldOffers[0].summary : ''
+        // const diffPreview = Diff.diffSentences(oldSummary, newSummary)
+        await dispatch(offer /*, diffPreview*/)
       }
     } catch (err) {
       console.log(`Unable to grab ${offer.name}: ${err.message}`)
