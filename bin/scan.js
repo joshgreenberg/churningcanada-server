@@ -7,6 +7,8 @@ const cheerio = require('cheerio')
 const puppeteer = require('puppeteer')
 const Diff = require('diff')
 
+const stringToSlug = str => str.replace(/\s+/g, '-').replace(/-+/g, '-')
+
 const virtualDOM = async (offer, page) => {
   if (offer.clickSelector || offer.hoverSelector) {
     await page.goto(offer.url)
@@ -41,37 +43,39 @@ const extractSummary = ($, selectors) => {
 
 const formatTelegram = (offer, diff) => {
   let output = `*${offer.name}*\n`
-  diff.forEach(part => {
-    const text = part.value.replace(/([*_])/g, '')
-    if (part.removed) {
-      output += `*-* ${text}\n`
-    } else if (part.added) {
-      output += `*+* _${text}_\n`
-    } else if (part.count > 0) {
-      output += `\n`
-    }
-  })
-  output += `[View offer](${offer.url})`
+  // diff.forEach(part => {
+  //   const text = part.value.replace(/([*_])/g, '')
+  //   if (part.removed) {
+  //     output += `*-* ${text}\n`
+  //   } else if (part.added) {
+  //     output += `*+* _${text}_\n`
+  //   } else if (part.count > 0) {
+  //     output += `\n`
+  //   }
+  // })
+  const url = `${process.env.CLIENT_URL}/${stringToSlug(offer.name)}`
+  output += `[View offer](${url})`
   return output
 }
 
 const formatSlack = (offer, diff) => {
   let output = `*${offer.name}*\n`
-  diff.forEach(part => {
-    const texts = part.value.replace(/([*_])/g, '').split(`\n`)
-    if (part.removed) {
-      texts.forEach(text => {
-        output += `~${text}~\n`
-      })
-    } else if (part.added) {
-      texts.forEach(text => {
-        output += `_${text}_\n`
-      })
-    } else if (part.count > 0) {
-      output += `\n`
-    }
-  })
-  output += `<${offer.url}|View offer>`
+  // diff.forEach(part => {
+  //   const texts = part.value.replace(/([*_])/g, '').split(`\n`)
+  //   if (part.removed) {
+  //     texts.forEach(text => {
+  //       output += `~${text}~\n`
+  //     })
+  //   } else if (part.added) {
+  //     texts.forEach(text => {
+  //       output += `_${text}_\n`
+  //     })
+  //   } else if (part.count > 0) {
+  //     output += `\n`
+  //   }
+  // })
+  const url = `${process.env.CLIENT_URL}/${stringToSlug(offer.name)}`
+  output += `<${url}|View offer>`
   return output
 }
 
@@ -135,6 +139,7 @@ const main = async () => {
       if (newFootnotes === '') {
         const selectors = offer.selectors || [offer.selector].filter(x => x)
         newSummary = extractSummary($, selectors)
+        newFootnotes = newSummary
       } else if (!oldOffers.map(o => o.footnotes).includes(newFootnotes)) {
         const selectors = offer.selectors || [offer.selector].filter(x => x)
         newSummary = extractSummary($, selectors)
