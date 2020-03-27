@@ -1,459 +1,462 @@
 -
   name: AMEX Cobalt
   url: https://www.americanexpress.com/ca/en/credit-cards/cobalt-card/
-  clickSelector: '.card-detail__eligibility .view-more'
-  footnotesSelector: 'ol.orderlist li'
-  selectors:
+  click: '.card-detail__eligibility .view-more'
+  select:
+    - '.product-variables-features > .product-feature:contains("Annual fee")'
     - '.why-amex .key-benefits-column:nth-child(1) .description_text'
-    - '.product-variables-features > .product-feature:nth-child(2)'
+    - 'ol.orderlist li'
 -
   name: AMEX Gold
   url: https://www.americanexpress.com/ca/en/charge-cards/gold-rewards-card/
-  clickSelector: '.card-detail__eligibility .view-more'
-  footnotesSelector: 'ol.orderlist li'
-  selectors:
+  click: '.card-detail__eligibility .view-more'
+  select:
     - '.card-detail__basic__welcome'
+    - '.product-variables-features > .product-feature:contains("Annual fee")'
     - '.why-amex .key-benefits-column:nth-child(1) .description_text'
-    - '.product-variables-features > .product-feature:nth-child(2)'
+    - 'ol.orderlist li'
 -
   name: AMEX Platinum
   url: https://www.americanexpress.com/ca/en/charge-cards/the-platinum-card/
-  clickSelector: '.card-detail__eligibility .view-more'
-  footnotesSelector: 'ol.orderlist li'
-  selectors: 
-    - 'div[class^=index-modules__contentHighlightStyle] > div:nth-child(1)'
-    - 'div[class^=index-modules__productVariablesContainer] > .product-feature:nth-child(2)'
-    - 'div[class^=index-modules__benefitsWrapper] > div[class^=index-modules__wrapper]:nth-child(3)'
+  click: '.card-detail__eligibility .view-more'
+  select: 
+    - '.product-feature:contains("Annual fee")'
+    - 'ol.orderlist li'
 -
   name: AMEX Business Edge
   url: https://www.americanexpress.com/en-ca/credit-cards/edge-business/
-  clickSelector: '.card-detail__eligibility .view-more'
-  footnotesSelector: 'ol.orderlist li'
-  selectors:
+  click: '.card-detail__eligibility .view-more'
+  select:
     - '.card-detail__basic__welcome'
+    - '.product-variables-features > .product-feature:contains("Annual fee")'
     - '.why-amex .key-benefits-column:nth-child(1) .description_text'
-    - '.product-variables-features > .product-feature:nth-child(2)'
+    - 'ol.orderlist li'
 -
   name: AMEX Business Gold
   url: https://www.americanexpress.com/ca/en/charge-cards/gold-rewards-card/
-  clickSelector: '.card-detail__eligibility .view-more'
-  footnotesSelector: 'ol.orderlist li'
-  selectors:
+  click: '.card-detail__eligibility .view-more'
+  select:
     - '.card-detail__basic__welcome'
+    - '.product-variables-features > .product-feature:contains("Annual fee")'
     - '.why-amex .key-benefits-column:nth-child(1) .description_text'
-    - '.product-variables-features > .product-feature:nth-child(2)'
+    - 'ol.orderlist li'
 -
   name: AMEX Business Platinum
   url: https://www.americanexpress.com/ca/en/charge-cards/small-business-platinum-card/
-  clickSelector: '.card-detail__eligibility .view-more'
-  footnotesSelector: 'ol.orderlist li'
-  selectors:
+  click: '.card-detail__eligibility .view-more'
+  select:
     - '.card-detail__basic__welcome'
+    - '.product-variables-features > .product-feature:contains("Annual fee")'
     - '.why-amex .key-benefits-column:nth-child(1) .description_text'
-    - '.product-variables-features > .product-feature:nth-child(2)'
+    - 'ol.orderlist li'
 -
   name: AMEX Bonvoy
   url: https://www.americanexpress.com/ca/en/credit-cards/marriott-bonvoy-card/
-  clickSelector: '.card-detail__eligibility .view-more'
-  footnotesSelector: 'ol.orderlist li'
-  selectors:
+  click: '.card-detail__eligibility .view-more'
+  select:
     - '.card-detail__basic__welcome'
+    - '.product-variables-features > .product-feature:contains("Annual fee")'
     - '.why-amex .key-benefits-column:nth-child(1) .description_text'
-    - '.product-variables-features > .product-feature:nth-child(2)'
+    - 'ol.orderlist li'
 -
   name: AMEX Bonvoy Business
   url: https://www.americanexpress.com/ca/en/credit-cards/marriott-bonvoy-business-card/
-  clickSelector: '.card-detail__eligibility .view-more'
-  footnotesSelector: 'ol.orderlist li'
-  selectors:
+  click: '.card-detail__eligibility .view-more'
+  select:
     - '.card-detail__basic__welcome'
+    - '.product-variables-features > .product-feature:contains("Annual fee")'
     - '.why-amex .key-benefits-column:nth-child(1) .description_text'
-    - '.product-variables-features > .product-feature:nth-child(2)'
+    - 'ol.orderlist li'
 -
   name: AMEX Aeroplan Gold
   url: https://www.americanexpress.com/ca/en/charge-cards/aeroplan-gold-card/
-  clickSelector: '.card-detail__eligibility .view-more'
-  footnotesSelector: 'ol.orderlist li'
-  selectors:
+  click: '.card-detail__eligibility .view-more'
+  select:
     - '.card-detail__basic__welcome'
-    - '.why-amex__col'
-    - '.product-variables-features > .product-feature:nth-child(2)'
+    - '.product-variables-features > .product-feature:contains("Annual fee")'
+    - '.why-amex__copy'
+    - 'ol.orderlist li'
 -
   name: AMEX Aeroplan Platinum
   url: https://www.americanexpress.com/ca/en/charge-cards/aeroplan-platinum-card/
-  clickSelector: '.card-detail__eligibility .view-more'
-  footnotesSelector: 'ol.orderlist li'
-  selectors:
+  click: '.card-detail__eligibility .view-more'
+  select:
     - '.card-detail__basic__welcome'
-    - '.why-amex__col'
-    - '.product-variables-features > .product-feature:nth-child(2)'
+    - '.product-variables-features > .product-feature:contains("Annual fee")'
+    - '.why-amex__copy'
+    - 'ol.orderlist li'
 -
   name: AMEX Aeroplan Reserve
   url: https://www.americanexpress.com/ca/en/credit-cards/aeroplan-reserve-credit-card/
-  clickSelector: '.card-detail__eligibility .view-more'
-  footnotesSelector: 'ol.orderlist li'
-  selectors:
+  click: '.card-detail__eligibility .view-more'
+  select:
     - '.card-detail__basic__welcome'
-    - '.why-amex__col'
-    - '.product-variables-features > .product-feature:nth-child(2)'
+    - '.product-variables-features > .product-feature:contains("Annual fee")'
+    - '.why-amex__copy'
+    - 'ol.orderlist li'
 -
   name: AMEX Air Miles Platinum
   url: https://www.americanexpress.com/ca/en/credit-cards/air-miles-platinum-credit-card/
-  clickSelector: '.card-detail__eligibility .view-more'
-  footnotesSelector: 'ol.orderlist li'
-  selectors:
+  click: '.card-detail__eligibility .view-more'
+  select:
     - '.card-detail__basic__welcome'
-    - '.why-amex__col'
-    - '.product-variables-features > .product-feature:nth-child(2)'
+    - '.product-variables-features > .product-feature:contains("Annual fee")'
+    - '.why-amex__copy'
+    - 'ol.orderlist li'
 -
   name: AMEX Air Miles Reserve
   url: https://www.americanexpress.com/ca/en/credit-cards/air-miles-reserve-credit-card/
-  clickSelector: '.card-detail__eligibility .view-more'
-  footnotesSelector: 'ol.orderlist li'
-  selectors:
+  click: '.card-detail__eligibility .view-more'
+  select:
     - '.card-detail__basic__welcome'
-    - '.why-amex__col'
-    - '.product-variables-features > .product-feature:nth-child(2)'
+    - '.product-variables-features > .product-feature:contains("Annual fee")'
+    - '.why-amex__copy'
+    - 'ol.orderlist li'
 -
   name: BMO Air Miles WE
-  url: https://www.bmo.com/main/personal/credit-cards/bmo-air-miles-world-elite-mastercard/
-  hoverSelector: '#profile .has-tip'
-  selectors:
-    - '#profile .product-column__heading'
-    - '.tooltip[data-is-active=true]'
+  url: https://www.bmo.com/popups/main/personal/credit-cards/terms-and-conditions-en.html
+  select:
+    - 'ul p'
+    - '.fakenote'
+    - 'ol li'
 -
   name: BMO Rewards WE
-  url: https://www.bmo.com/main/personal/credit-cards/bmo-rewards-world-elite-mastercard/
-  hoverSelector: '#profile .has-tip'
-  selectors:
-    - '#profile .product-column__heading'
-    - '.tooltip[data-is-active=true]'
+  url: https://www.bmo.com/popups/main/personal/credit-cards/terms-and-conditions-en.html
+  select:
+    - 'ul p'
+    - '.fakenote'
+    - 'ol li'
 -
   name: BMO Cashback WE
-  url: https://www.bmo.com/main/personal/credit-cards/bmo-cashback-world-elite-mastercard/
-  hoverSelector: '#profile .has-tip'
-  selectors:
-    - '#profile .product-column__heading'
-    - '.tooltip[data-is-active=true]'
+  url: https://www.bmo.com/popups/main/personal/credit-cards/terms-and-conditions-en.html
+  select:
+    - 'ul p'
+    - '.fakenote'
+    - 'ol li'
+-
+  name: BMO Air Miles Business
+  url: https://www.bmo.com/main/business/credit-cards/bmo-airmiles-business-mastercard/
+  select:
+    - 'ol li'
+-
+  name: BMO Rewards Business
+  url: https://www.bmo.com/main/business/credit-cards/bmo-rewards-business-mastercard/
+  select:
+    - 'ol li'
 -
   name: CIBC Aerogold VI
   url: https://www.cibc.com/en/personal-banking/credit-cards/all-credit-cards/aerogold-visa-infinite-card.html
-  footnotesSelector: '.terms-content-wrapper p'
-  selectors:
-    - '#blq-content > .layoutcontainer:nth-child(5) .row .column:nth-child(1)'
-    - '#blq-content > .layoutcontainer:nth-child(7) .row .column:nth-child(1)'
+  select:
+    - '.longformtext p:contains("Annual fee")'
+    - '.terms-content-wrapper p'
 -
   name: CIBC Aventura VI
   url: https://www.cibc.com/en/personal-banking/credit-cards/all-credit-cards/aventura-visa-infinite-card.html
-  footnotesSelector: '.terms-content-wrapper p'
-  selectors:
-    - '#blq-content > .layoutcontainer:nth-child(5) .row .column:nth-child(1)'
-    - '#blq-content > .layoutcontainer:nth-child(7) .row .column:nth-child(1)'
+  select:
+    - '.longformtext p:contains("Annual fee")'
+    - '.terms-content-wrapper p'
 -
   name: CIBC Aerogold VIP
   url: https://www.cibc.com/en/personal-banking/credit-cards/all-credit-cards/aerogold-visa-infinite-privilege-card.html
-  footnotesSelector: '.terms-content-wrapper p'
-  selectors:
-    - '#blq-content > .layoutcontainer:nth-child(5) .row .column:nth-child(1)'
-    - '#blq-content > .layoutcontainer:nth-child(7) .row .column:nth-child(1)'
+  select:
+    - '.longformtext p:contains("Annual fee")'
+    - '.terms-content-wrapper p'
 -
   name: CIBC Aventura VIP
   url: https://www.cibc.com/en/personal-banking/credit-cards/all-credit-cards/aventura-visa-infinite-privilege-card.html
-  footnotesSelector: '.terms-content-wrapper p'
-  selectors:
-    - '#blq-content > .layoutcontainer:nth-child(5) .row .column:nth-child(1)'
-    - '#blq-content > .layoutcontainer:nth-child(6) .row .column:nth-child(1)'
+  select:
+    - '.longformtext p:contains("Annual fee")'
+    - '.terms-content-wrapper p'
 -
   name: CIBC Aerogold Business
   url: https://www.cibc.com/en/business/credit-cards/aerogold-visa.html
-  footnotesSelector: '.terms-content-wrapper p'
-  selectors:
-    - '#blq-content > .layoutcontainer:nth-child(4) .row .column:nth-child(1)'
-    - '#blq-content > .layoutcontainer:nth-child(7) .row .column:nth-child(1)'
+  select:
+    - '.longformtext p:contains("Annual fee")'
+    - '.terms-content-wrapper p'
 -
   name: CIBC Aventura Business
   url: https://www.cibc.com/en/business/credit-cards/aventura-visa.html
-  footnotesSelector: '.terms-content-wrapper p'
-  selectors:
-    - '#blq-content > .layoutcontainer:nth-child(4) .row .row .column:nth-child(1)'
-    - '#blq-content > .layoutcontainer:nth-child(6) .row .column:nth-child(1)'
+  select:
+    - '.longformtext p:contains("Annual fee")'
+    - '.terms-content-wrapper p'
 -
   name: CIBC Dividend VI
   url: https://www.cibc.com/en/personal-banking/credit-cards/all-credit-cards/dividend-visa-infinite-card.html
-  footnotesSelector: '.terms-content-wrapper p'
-  selectors:
+  select:
     - '.featurebannercontainer .banner-headline-l'
     - '.featurebannercontainer .banner-body-copy'
     - '#blq-content > .layoutcontainer:nth-child(7) .row .column:nth-child(1)'
+    - '.terms-content-wrapper p'
 -
   name: HSBC Rewards WE
   url: https://www.hsbc.ca/credit-cards/products/world-elite/
-  footnotesSelector: '#pp_rel_richtext_1 p'
-  selector: '#pp_main_creditCardProductModule_1'
+  select:
+    - '#pp_main_richtext_1 li:contains("Annual Fee")'
+    - '#pp_rel_richtext_1 p'
 -
   name: MBNA Alaska PP
   url: https://www.mbna.ca/en/credit-cards/travel/alaska-airlines-mastercard/
-  footnotesSelector: '#accordion-platinum1 li, #platinum p'
-  selector: '#accordion-platinum1'
+  select:
+    - 'ul.td-product-features li:contains("Annual Fee")'
+    - '#accordion-platinum1 li'
+    - '#platinum p'
 -
   name: MBNA Alaska WE
   url: https://www.mbna.ca/en/credit-cards/travel/alaska-airlines-world-elite-mastercard/
-  footnotesSelector: '#accordion-worldelite1 li, #worldelite p'
-  selector: '#accordion-worldelite1'
+  select:
+    - 'ul.td-product-features li:contains("Annual Fee")'
+    - '#accordion-worldelite1 li'
+    - '#worldelite p'
 -
   name: MBNA Best Western
   url: https://www.mbna.ca/en/credit-cards/travel/best-western-mastercard/
-  footnotesSelector: '#bestWestern p'
-  selectors:
-    - '.td-copy-container'
-    - '.td-product-features li:nth-child(1)'
+  select:
+    - 'ul.td-product-features li:contains("Annual Fee")'
+    - '#accordion-bwr1 li'
+    - '#bestWestern p'
 -
   name: MBNA Rewards WE
   url: https://www.mbna.ca/en/credit-cards/rewards/mbna-rewards-world-elite-mastercard/
-  footnotesSelector: '#RewardsWorldEliteEN p'
-  selectors:
-    - '.td-copy-container'
-    - '.td-product-features li:nth-child(1)'
+  select:
+    - 'ul.td-product-features li:contains("Annual Fee")'
+    - '#accordion-rcl1 li'
+    - '#RewardsWorldEliteEN p'
 -
   name: National Bank Rewards WE
   url: https://www.nbc.ca/personal/mastercard-credit-cards/world-elite.html
-  clickSelector: '.aem-Grid .websites_collapse_component:last-child .allAreaClickable'
-  footnotesSelector: '.aem-Grid .websites_collapse_collapse_collapseStyle1:last-child p'
-  selector: '.bncr-banner'
+  click: 'a[href="#notes"]'
+  select:
+    - '.ccProductPricing > aem-Grid > aem-GridColumn:nth-child(2)'
+    - '.collapse-container-open .textandimage p'
 -
   name: RBC Avion VI
   url: https://www.rbcroyalbank.com/credit-cards/travel/rbc-avion-visa-infinite.html
-  clickSelector: '#legal-content'
-  selectors:
+  click: '#legal-content'
+  select:
     - '#product-details li'
-    - '#product-params .col-3:nth-child(1)'
-  footnotesSelector: '#legal .collapse-content .disclaimer'
+    - '#product-params .col-3:contains("Annual Fee")'
+    - '#legal .collapse-content .disclaimer'
 -
   name: RBC Avion VI - Aug 2018 20K
   url: https://www.rbcroyalbank.com/credit-cards/camp/iav/1808/
-  selectors:
+  select:
     - '.banner + section h1'
     - '.banner + section h1 + p'
-  footnotesSelector: '#collapseExample5 .table-row .table-cell:nth-child(2)'
+    - '#collapseExample5 .table-row'
 -
   name: RBC Avion VI - Nov 2019 25K
   url: https://www.rbcroyalbank.com/credit-cards/camp/iav/19112/
-  selectors:
+  select:
     - '.banner + section h1'
     - '.banner + section h1 + p'
-  footnotesSelector: '#collapseExample5 .table-row .table-cell:nth-child(2)'
+    - '#collapseExample5 .table-row'
 -
   name: RBC Avion VIP
   url: https://www.rbcroyalbank.com/credit-cards/travel/rbc-avion-visa-infinite-privilege.html
-  selectors:
+  select:
     - '#product-details li'
-    - '#product-params .col-3:nth-child(1)'
-  footnotesSelector: '#legalcollapse-avioninfiniteprivilege .collapse-content .disclaimer'
+    - '#product-params .col-3:contains("Annual Fee")'
+    - '#legal .collapse-content .disclaimer'
 -
   name: RBC Avion Business
   url: https://www.rbcroyalbank.com/business/credit-cards/small-business-credit-cards/rbc-avion-visa-business.html
-  clickSelector: '#disclaimer .collapse-toggle'
-  footnotesSelector: '#collapse-legal .collapse-content .table-cell'
+  click: '#disclaimer .collapse-toggle'
+  select:
+    - 'main > section:nth-child(1) p:contains("Annual Fee")'
+    - 'main > section:nth-child(3) p:nth-child(1)'
+    - '#collapse-legal .table-row'
 -
   name: RBC Avion VI Business
   url: https://www.rbcroyalbank.com/business/credit-cards/small-business-credit-cards/avion-visa-infinite-business.html
-  clickSelector: '#disclaimer .collapse-toggle'
-  footnotesSelector: '#collapse-legal .collapse-content .table-cell'
+  click: '#disclaimer .collapse-toggle'
+  select:
+    - 'main > section:nth-child(1) p:contains("Annual Fee")'
+    - 'ul.disc-list:first-child li'
+    - '#collapse-legal .table-row'
 -
   name: RBC British Airways VI
   url: https://www.rbcroyalbank.com/credit-cards/travel/rbc-british-airways-visa-infinite.html
-  clickSelector: '#legal-content'
-  selectors:
+  click: '#legal-content'
+  select:
     - '#product-details li'
-    - '#product-params .col-3:nth-child(1)'
-  footnotesSelector: '#legal .collapse-content .disclaimer'
+    - '#product-params .col-3:contains("Annual Fee")'
+    - '#legal .collapse-content .disclaimer'
 -
   name: RBC Cathay Pacific
   url: https://www.rbcroyalbank.com/credit-cards/travel/rbc-cathay-pacific-visa-platinum.html
-  clickSelector: '#legal-content'
-  selectors:
+  click: '#legal-content'
+  select:
     - '#product-details li'
-    - '#product-params .col-3:nth-child(1)'
-  footnotesSelector: '#legal .collapse-content .disclaimer'
+    - '#product-params .col-3:contains("Annual Fee")'
+    - '#legal .collapse-content .disclaimer'
 -
   name: RBC Westjet WE
   url: https://www.rbcroyalbank.com/credit-cards/travel/westjet-rbc-world-elite-mastercard.html
-  clickSelector: '#legal-content'
-  selectors:
+  click: '#legal-content'
+  select:
     - '#product-details li'
-    - '#product-params .col-3:nth-child(1)'
-  footnotesSelector: '#legal .collapse-content .disclaimer'
+    - '#product-params .col-3:contains("Annual Fee")'
+    - '#legal .collapse-content .disclaimer'
 -
   name: Scotiabank Gold Amex
   url: https://www.scotiabank.com/ca/en/personal/credit-cards/american-express/gold-card.html
-  footnotesSelector: '#legal .col-text'
-  selectors:
+  select:
     - '#additional-content .section--content .offer .headline'
     - '#amexgoldofferdetails .cmp-text'
+    - '#legal .col-text'
 -
   name: Scotiabank Momentum VI
   url: https://www.scotiabank.com/ca/en/personal/credit-cards/visa/momentum-infinite-card.html
-  footnotesSelector: '#legal .col-text'
-  selector: '#additional-content .section--content .offer .headline'
+  select:
+    - '#additional-content .section--content .offer .headline'
+    - '#legal .col-text'
 -
   name: Scotiabank Passport VI
   url: https://www.scotiabank.com/ca/en/personal/credit-cards/visa/passport-infinite-card.html
-  footnotesSelector: '#legal .legal-text-item'
-  selectors:
+  select:
     - '#product-header-title .bns--title small'
     - '#product-header-cards .bns--card.f1'
     - '#product-header-cards .bns--card.f2'
+    - '#legal .legal-text-item .col-text'
 -
   name: Tangerine World
   url: https://www.tangerine.ca/en/products/spending/creditcard/world/
-  footnotesSelector: '.tngDisclaimer p'
-  selector: '#interact_productDetailInsightsCard'
+  select:
+    - '#interact_productDetailInsightsCard'
+    - '.tngDisclaimer p'
 -
   name: TD Aeroplan Platinum
   url: https://www.td.com/ca/en/personal-banking/products/credit-cards/aeroplan/aeroplan-visa-platinum-card/
-  footnotesSelector: '#TermsCond p'
-  selector: '.td-product-info-right'
+  select: '#TermsCond p'
 -
   name: TD Aeroplan VI
   url: https://www.td.com/ca/en/personal-banking/products/credit-cards/aeroplan/aeroplan-visa-infinite-card/
-  footnotesSelector: '#TermsCond p'
-  selector: '.td-product-info-right'
+  select: '#TermsCond p'
 -
   name: TD Aeroplan VIP
   url: https://www.td.com/ca/en/personal-banking/products/credit-cards/aeroplan/aeroplan-visa-infinite-privilege-card/
-  footnotesSelector: '#TermsCond p'
-  selector: '.td-product-info-right'
+  select: '#TermsCond p'
 -
   name: TD First Class Travel VI
   url: https://www.td.com/ca/en/personal-banking/products/credit-cards/travel-rewards/first-class-travel-visa-infinite-card/
-  footnotesSelector: '#firstclasstravelvisamodal01 p'
-  selector: '.td-product-info-right'
+  select: '#firstclasstravelvisamodal01 p'
 -
   name: TD Platinum Travel
   url: https://www.td.com/ca/en/personal-banking/products/credit-cards/travel-rewards/platinum-travel-visa-card/
-  footnotesSelector: '#TermsCond p'
-  selector: '.td-product-info-right'
+  select: '#TermsCond p'
 -
   name: TD Cashback VI
   url: https://www.td.com/ca/en/personal-banking/products/credit-cards/cash-back/cash-back-visa-infinite-card/
-  footnotesSelector: '#TermsCond p'
-  selector: '.td-product-info-right'
+  select: '#TermsCond p'
 -
   name: TD Aeroplan Business
   url: https://www.td.com/ca/en/business-banking/small-business/credit-cards/aeroplan-visa-business-card/
-  footnotesSelector: '#TermsCond p'
-  selector: '.td-product-info-right'
+  select: '#TermsCond p'
 -
   name: TD Travel Business
   url: https://www.td.com/ca/en/business-banking/small-business/credit-cards/business-travel-visa-card/
-  footnotesSelector: '#businesstravelvisamodal02 p'
-  selector: '.td-product-info-right'
+  select: '#businesstravelvisamodal02 p'
 -
   name: TD Aeroplan VI - Spring 35K
   url: https://aeroplan.td.com/
-  footnotesSelector: '#termsConditions p'
-  selector: '.td-product-info-row'
+  select: '#termsConditions p'
 -
   name: AMEX Aeroplan Gold - GCR
   url: https://www.greatcanadianrebates.ca/details/Amex-AeroplanPlusGold/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: AMEX Aeroplan Platinum - GCR
   url: https://www.greatcanadianrebates.ca/details/Amex-AeroplanPlus-Platinum/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: AMEX Air Miles Platinum - GCR
   url: https://www.greatcanadianrebates.ca/details/Amex-AirMilesPlatinum/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: AMEX Bonvoy - GCR
   url: https://www.greatcanadianrebates.ca/details/Amex-Marriott-Bonvoy/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: AMEX Bonvoy Business - GCR
   url: https://www.greatcanadianrebates.ca/details/Amex-Marriott-Bonvoy-Business/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: AMEX Business Edge - GCR
   url: https://www.greatcanadianrebates.ca/details/Amex-Business-Edge/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: AMEX Business Gold - GCR
   url: https://www.greatcanadianrebates.ca/details/Amex-Business-Gold/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: AMEX Business Platinum - GCR
   url: https://www.greatcanadianrebates.ca/details/Amex-Business-Platinum/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: AMEX Cobalt - GCR
   url: https://www.greatcanadianrebates.ca/details/Amex-Cobalt/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: AMEX Gold - GCR
   url: https://www.greatcanadianrebates.ca/details/Amex-Gold/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: AMEX SimplyCash - GCR
   url: https://www.greatcanadianrebates.ca/details/Amex-SimplyCash-NoFee/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: AMEX SimplyCash Preferred - GCR
   url: https://www.greatcanadianrebates.ca/details/Amex-SimplyCash-Preferred/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: CIBC Aventura VI - GCR
   url: https://www.greatcanadianrebates.ca/details/CIBC-Aventura-Visa-Infinite/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: CIBC Dividend VI - GCR
   url: https://www.greatcanadianrebates.ca/details/CIBC-Dividend-Visa-Infinite/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: MBNA Alaska PP - GCR
   url: https://www.greatcanadianrebates.ca/details/MBNA-Alaska-Airlines-Platnium/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: MBNA Alaska WE - GCR
   url: https://www.greatcanadianrebates.ca/details/MBNA-Alaska-Airlines/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: MBNA Best Western - GCR
   url: https://www.greatcanadianrebates.ca/details/MBNA-BestWestern/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: Scotiabank Gold Amex - GCR
   url: https://www.greatcanadianrebates.ca/details/Scotia-Amex-Gold/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: Scotiabank Momentum VI - GCR
   url: https://www.greatcanadianrebates.ca/details/Scotia-Infinite/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: Scotiabank Passport VI - GCR
   url: https://www.greatcanadianrebates.ca/details/Scotiabank-Passport-Infinite/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: Tangerine World - GCR
   url: https://www.greatcanadianrebates.ca/details/Tangerine-World-Mastercard/
-  selector: '#rebate b'
+  select: '#rebate b'
 -
   name: AMEX Cobalt - Perkopolis
   url: https://www.americanexpress.com/ca/en/credit-cards/compare-cobalt-card-and-gold-rewards-card/
-  footnotesSelector: '.termAndCondition__item'
-  selector: '.essentialwrapper:not(.bottom) .essential:nth-child(1) .welcomeOffer'
+  select: '.termAndCondition__item'
 -
   name: AMEX Gold - Perkopolis
   url: https://www.americanexpress.com/ca/en/credit-cards/compare-cobalt-card-and-gold-rewards-card/
-  footnotesSelector: '.termAndCondition__item'
-  selector: '.essentialwrapper:not(.bottom) .essential:nth-child(2) .welcomeOffer'
+  select: '.termAndCondition__item'
 -
   name: AMEX Gold - CPA
   url: https://www.americanexpress.com/en-ca/credit-cards/offers/cpa/
-  footnotesSelector: '.termAndCondition__item'
-  selector: '.essentialwrapper:not(.bottom) .essential:nth-child(1) .welcomeOffer'
+  select: '.termAndCondition__item'
 -
   name: AMEX Business Gold - CPA
   url: https://www.americanexpress.com/en-ca/credit-cards/offers/cpa/
-  footnotesSelector: '.termAndCondition__item'
-  selector: '.essentialwrapper:not(.bottom) .essential:nth-child(2) .welcomeOffer'
+  select: '.termAndCondition__item'
