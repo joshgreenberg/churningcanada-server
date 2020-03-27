@@ -127,7 +127,11 @@ const main = async () => {
   })
 
   if (updatedOffers.length > 0) {
-    await dispatch(updatedOffers)
+    await dispatch(
+      updatedOffers.sort((a, b) =>
+        a.name > b.name ? 1 : a.name < b.name ? -1 : 0
+      )
+    )
   }
 
   await browser.close()
