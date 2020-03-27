@@ -23,7 +23,8 @@
     "js-yaml": "^3.13.1",
     "mongoose": "^5.9.5",
     "pg": "^7.15.1",
-    "puppeteer": "^2.0.0"
+    "puppeteer": "^2.0.0",
+    "yargs": "^15.3.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",

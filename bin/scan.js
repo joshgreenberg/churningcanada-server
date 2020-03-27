@@ -6,6 +6,11 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 const puppeteer = require('puppeteer')
 
+const yargs = require('yargs')
+const argv = yargs.option('dispatch', {
+  type: 'boolean',
+}).argv
+
 const stringToSlug = str =>
   str
     .toLowerCase()
@@ -93,7 +98,15 @@ const main = async () => {
     const footnotes = []
     try {
       const $ = await virtualDOM(offer, page)
-      $('sup').remove()
+      $('sup')
+        .filter(function() {
+          return /(\d|\w)+/.test(
+            $(this)
+              .text()
+              .trim()
+          )
+        })
+        .remove()
       $('br')
         .before(' ')
         .remove()
@@ -106,6 +119,7 @@ const main = async () => {
           $(el)
             .text()
             .trim()
+            .replace(/(\$)/g, ' $')
             .replace(/\s+/g, ' ')
         )
       })
@@ -126,7 +140,7 @@ const main = async () => {
     updatedOffers.push(offer)
   })
 
-  if (updatedOffers.length > 0) {
+  if (updatedOffers.length > 0 && argv.dispatch) {
     await dispatch(
       updatedOffers.sort((a, b) =>
         a.name > b.name ? 1 : a.name < b.name ? -1 : 0
