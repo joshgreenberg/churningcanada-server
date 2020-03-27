@@ -119,17 +119,20 @@ const main = async () => {
           $(el)
             .text()
             .trim()
-            .replace(/(\$)/g, ' $')
+            .replace(/(?<=\w)\$/g, ' $')
             .replace(/\s+/g, ' ')
         )
       })
     } catch (err) {
-      console.log(`Unable to grab ${offer.name}: ${err.message}`)
+      console.log(`[ERROR!] ${offer.name}: ${err.message}`)
     }
 
     if (oldOffer && oldOffer.footnotes.join('\n') === footnotes.join('\n')) {
+      console.log(`[NODIFF] ${offer.name}`)
       return
     }
+
+    console.log(`[UPDATE] ${offer.name}`)
 
     await db.models.Offer.create({
       name: offer.name,
