@@ -253,6 +253,7 @@
 -
   name: RBC Avion VIP
   url: https://www.rbcroyalbank.com/credit-cards/travel/rbc-avion-visa-infinite-privilege.html
+  click: '#legal-content'
   select:
     - '#product-details li'
     - '#product-params .col-3:contains("Annual Fee")'
@@ -290,7 +291,7 @@
     - '#product-params .col-3:contains("Annual Fee")'
     - '#legal .collapse-content .disclaimer'
 -
-  name: RBC Westjet WE
+  name: RBC WestJet WE
   url: https://www.rbcroyalbank.com/credit-cards/travel/westjet-rbc-world-elite-mastercard.html
   click: '#legal-content'
   select:
@@ -345,7 +346,7 @@
   url: https://www.td.com/ca/en/personal-banking/products/credit-cards/travel-rewards/platinum-travel-visa-card/
   select: '#TermsCond p'
 -
-  name: TD Cashback VI
+  name: TD Cash Back VI
   url: https://www.td.com/ca/en/personal-banking/products/credit-cards/cash-back/cash-back-visa-infinite-card/
   select: '#TermsCond p'
 -

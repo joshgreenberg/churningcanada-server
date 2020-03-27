@@ -118,10 +118,10 @@ const main = async () => {
         footnotes.push(
           $(el)
             .text()
-            .trim()
             .replace(/(?<=\w)\$/g, ' $')
             .replace(/\xa0/g, ' ')
             .replace(/\s+/g, ' ')
+            .trim()
         )
       })
     } catch (err) {
@@ -133,7 +133,11 @@ const main = async () => {
       return
     }
 
-    console.log(`[NEW] ${offer.name}`)
+    if (oldOffer) {
+      console.log(`[***] ${offer.name}`)
+    } else {
+      console.log(`[NEW] ${offer.name}`)
+    }
 
     await db.models.Offer.create({
       name: offer.name,
