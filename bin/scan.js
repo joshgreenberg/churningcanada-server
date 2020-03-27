@@ -120,19 +120,20 @@ const main = async () => {
             .text()
             .trim()
             .replace(/(?<=\w)\$/g, ' $')
+            .replace(/\xa0/g, ' ')
             .replace(/\s+/g, ' ')
         )
       })
     } catch (err) {
-      console.log(`[ERROR!] ${offer.name}: ${err.message}`)
+      console.log(`[!!!] ${offer.name}: ${err.message}`)
     }
 
     if (oldOffer && oldOffer.footnotes.join('\n') === footnotes.join('\n')) {
-      console.log(`[NODIFF] ${offer.name}`)
+      console.log(`[---] ${offer.name}`)
       return
     }
 
-    console.log(`[UPDATE] ${offer.name}`)
+    console.log(`[NEW] ${offer.name}`)
 
     await db.models.Offer.create({
       name: offer.name,
