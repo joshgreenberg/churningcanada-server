@@ -115,14 +115,15 @@ const main = async () => {
         typeof offer.select == 'string' ? offer.select : offer.select.join(', ')
 
       $(select).each((i, el) => {
-        footnotes.push(
-          $(el)
-            .text()
-            .replace(/(?<=\w)\$/g, ' $')
-            .replace(/\xa0/g, ' ')
-            .replace(/\s+/g, ' ')
-            .trim()
-        )
+        const note = $(el)
+          .text()
+          .replace(/(?<=\w)\$/g, ' $')
+          .replace(/\xa0/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim()
+        if (note) {
+          footnotes.push(note)
+        }
       })
     } catch (err) {
       console.log(`[!!!] ${offer.name}: ${err.message}`)
