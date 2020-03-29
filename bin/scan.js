@@ -129,8 +129,13 @@ const main = async () => {
       console.log(`[!!!] ${offer.name}: ${err.message}`)
     }
 
-    if (oldOffer && oldOffer.footnotes.join('\n') === footnotes.join('\n')) {
+    if (footnotes.length == 0) {
       console.log(`[---] ${offer.name}`)
+      return
+    }
+
+    if (oldOffer && oldOffer.footnotes.join('\n') === footnotes.join('\n')) {
+      console.log(`[   ] ${offer.name}`)
       return
     }
 
