@@ -53,29 +53,40 @@ const formatSlack = offers => {
     .join('\n')
 }
 
-const sendTelegram = async offers => {
+const buildMessage = (updatedOffers, newOffers, title, callback) => {
+  return [
+    updatedOffers.length > 0
+      ? `*Updated offers:*\n${callback(updatedOffers)}`
+      : null,
+    newOffers.length > 0 ? `*Now monitoring:*\n${callback(newOffers)}` : null,
+  ]
+    .join('\n\n')
+    .trim()
+}
+
+const sendTelegram = async (updatedOffers, newOffers) => {
   await axios.post(
     `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_API_TOKEN}/sendMessage`,
     {
       chat_id: process.env.TELEGRAM_CHAT_ID,
-      text: `*New offers:*\n${formatTelegram(offers)}`,
+      text: buildMessage(updatedOffers, newOffers, formatTelegram),
       parse_mode: 'Markdown',
     }
   )
 }
 
-const sendSlack = async offers => {
+const sendSlack = async (updatedOffers, newOffers) => {
   await axios.post(process.env.SLACK_WEBHOOK_URL, {
-    text: `*New offers:*\n${formatSlack(offers)}`,
+    text: buildMessage(updatedOffers, newOffers, formatSlack),
   })
 }
 
-const dispatch = async offers => {
+const dispatch = async (updatedOffers, newOffers) => {
   if (process.env.TELEGRAM_BOT_API_TOKEN) {
-    await sendTelegram(offers)
+    await sendTelegram(updatedOffers, newOffers)
   }
   if (process.env.SLACK_WEBHOOK_URL) {
-    await sendSlack(offers)
+    await sendSlack(updatedOffers, newOffers)
   }
 }
 
@@ -88,6 +99,7 @@ const main = async () => {
   const file = fs.readFileSync(`${__dirname}/../src/data/offers.yaml`, 'utf8')
   const offers = yaml.safeLoad(file)
   const updatedOffers = []
+  const newOffers = []
   const oldOffers = await db.models.Offer.find()
 
   await offers.asyncForEach(async offer => {
@@ -141,8 +153,10 @@ const main = async () => {
 
     if (oldOffer) {
       console.log(`[***] ${offer.name}`)
+      updatedOffers.push(offer)
     } else {
       console.log(`[NEW] ${offer.name}`)
+      newOffers.push(offer)
     }
 
     await db.models.Offer.create({
@@ -150,15 +164,14 @@ const main = async () => {
       timestamp: parseInt(Date.now() / 1000),
       footnotes,
     })
-
-    updatedOffers.push(offer)
   })
 
-  if (updatedOffers.length > 0 && argv.dispatch) {
+  if (updatedOffers.length > 0 || (newOffers.length > 0 && argv.dispatch)) {
     await dispatch(
       updatedOffers.sort((a, b) =>
         a.name > b.name ? 1 : a.name < b.name ? -1 : 0
-      )
+      ),
+      newOffers.sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0))
     )
   }
 

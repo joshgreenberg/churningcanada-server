@@ -33,7 +33,7 @@
     - 'ol.orderlist li'
 -
   name: AMEX Business Gold
-  url: https://www.americanexpress.com/ca/en/charge-cards/gold-rewards-card/
+  url: https://www.americanexpress.com/ca/en/charge-cards/small-business-gold-card/
   click: '.card-detail__eligibility .view-more'
   select:
     - '.card-detail__basic__welcome'
@@ -192,6 +192,11 @@
   url: https://www.hsbc.ca/credit-cards/products/world-elite/
   select:
     - '#pp_main_richtext_1 li:contains("Annual Fee")'
+    - '#pp_main_creditCardProductModule_1 div.text-container'
+    - '#pp_main_creditCardProductModule_1 li'
+    - '#pp_main_advanced_expander_1 h3'
+    - '#pp_main_richtext_2 p'
+    - '#pp_main_richtext_2 li'
     - '#pp_rel_richtext_1 p'
 -
   name: MBNA Alaska PP
@@ -246,6 +251,13 @@
 -
   name: RBC Avion VI - Nov 2019 25K
   url: https://www.rbcroyalbank.com/credit-cards/camp/iav/19112/
+  select:
+    - '.banner + section h1'
+    - '.banner + section h1 + p'
+    - '#collapseExample5 .table-row'
+-
+  name: RBC Avion VI - 2020 35K
+  url: https://www.rbcroyalbank.com/credit-cards/campaign/iav/2001/
   select:
     - '.banner + section h1'
     - '.banner + section h1 + p'
