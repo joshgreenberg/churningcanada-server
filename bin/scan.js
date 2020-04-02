@@ -53,7 +53,7 @@ const formatSlack = offers => {
     .join('\n')
 }
 
-const buildMessage = (updatedOffers, newOffers, title, callback) => {
+const buildMessage = (updatedOffers, newOffers, callback) => {
   return [
     updatedOffers.length > 0
       ? `*Updated offers:*\n${callback(updatedOffers)}`
