@@ -193,7 +193,6 @@
   select:
     - '#pp_main_richtext_1 li:contains("Annual Fee")'
     - '#pp_main_creditCardProductModule_1 div.text-container'
-    - '#pp_main_creditCardProductModule_1 li'
     - '#pp_main_advanced_expander_1 h3'
     - '#pp_main_richtext_2 p'
     - '#pp_main_richtext_2 li'
