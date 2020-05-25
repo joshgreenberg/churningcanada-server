@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean": "node -r dotenv/config bin/clean",
+    "aeroplan": "node -r dotenv/config bin/aeroplan",
     "dev": "nodemon bin/dev",
     "prettier": "npx prettier --write 'src/**/*.{js,ts}'",
     "scan": "node -r dotenv/config bin/scan",
-    "seed": "node -r dotenv/config bin/seed",
     "start": "node src/server"
   },
   "author": "Josh Greenberg",
@@ -21,6 +20,7 @@
     "diff": "^4.0.1",
     "express": "^4.17.1",
     "js-yaml": "^3.13.1",
+    "moment": "^2.26.0",
     "mongoose": "^5.9.5",
     "pg": "^7.15.1",
     "puppeteer": "^2.0.0",
@@ -32,6 +32,7 @@
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "nodemon": "^2.0.4",
     "prettier": "^1.19.1"
   }
 }

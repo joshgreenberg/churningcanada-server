@@ -7,5 +7,6 @@ const db = mongoose.connect(process.env.MONGODB_URI, {
 })
 
 require('./Offer')
+require('./Retailer')
 
 module.exports = mongoose
