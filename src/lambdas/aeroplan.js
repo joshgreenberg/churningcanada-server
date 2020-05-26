@@ -65,40 +65,43 @@ const main = async argv => {
   let more = true
   let pn = 1
   while (more) {
-    const result = await axios
-      .get('https://www.aeroplan.com/estore/products.ep', {
-        params: {
-          cID: 'allretailers',
-          pn,
-        },
+    try {
+      const result = await axios.get(
+        'https://www.aeroplan.com/estore/products.ep',
+        {
+          params: {
+            cID: 'allretailers',
+            pn,
+          },
+        }
+      )
+      console.log(`got page ${pn}`)
+      const $ = cheerio.load(result.data)
+      $('.lazyloaders-desktop .col-md-3').each(function() {
+        const $el = $(this)
+        const name = $el
+          .children('a.retailers-shop-now')[0]
+          .attribs.onclick.match(/'', '(.*)', ''/)[1]
+          .toUpperCase()
+        const multiplier = $el
+          .children('p.miles-per')
+          .text()
+          .match(/^(\d+) /)[1]
+        if (retailers.find(r => r.name === name)) {
+          more = false
+        } else {
+          retailers.push({
+            date: today,
+            portal,
+            name,
+            multiplier,
+          })
+        }
       })
-      .catch(err => {
-        console.log(err)
-      })
-    console.log(`got page ${pn}`)
-    const $ = cheerio.load(result.data)
-    $('.lazyloaders-desktop .col-md-3').each(function() {
-      const $el = $(this)
-      const name = $el
-        .children('a.retailers-shop-now')[0]
-        .attribs.onclick.match(/'', '(.*)', ''/)[1]
-        .toUpperCase()
-      const multiplier = $el
-        .children('p.miles-per')
-        .text()
-        .match(/^(\d+) /)[1]
-      if (retailers.find(r => r.name === name)) {
-        more = false
-      } else {
-        retailers.push({
-          date: today,
-          portal,
-          name,
-          multiplier,
-        })
-      }
-    })
-    console.log(`${retailers.length} retailers so far`)
+      console.log(`${retailers.length} retailers so far`)
+    } catch (err) {
+      console.log(err)
+    }
     pn++
   }
   console.log('done gathering retailers')
