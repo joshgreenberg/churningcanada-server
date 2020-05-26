@@ -59,6 +59,7 @@ const main = async argv => {
     console.log(`Already scraped ${portal} today, skipping.`)
     return false
   }
+  console.log('Gathering retailers...')
 
   const retailers = []
   let more = true
@@ -73,6 +74,7 @@ const main = async argv => {
         },
       }
     )
+    console.log(`got page ${pn}`)
     const $ = cheerio.load(result.data)
     $('.lazyloaders-desktop .col-md-3').each(function() {
       const $el = $(this)
@@ -95,8 +97,10 @@ const main = async argv => {
         })
       }
     })
+    console.log(`${retailers.length} retailers so far`)
     pn++
   }
+  console.log('done gathering retailers')
 
   // Save today's scrape to the database
 
