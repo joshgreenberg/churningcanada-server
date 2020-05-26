@@ -65,15 +65,16 @@ const main = async argv => {
   let more = true
   let pn = 1
   while (more) {
-    const result = await axios.get(
-      'https://www.aeroplan.com/estore/products.ep',
-      {
+    const result = await axios
+      .get('https://www.aeroplan.com/estore/products.ep', {
         params: {
           cID: 'allretailers',
           pn,
         },
-      }
-    )
+      })
+      .catch(err => {
+        console.log(err)
+      })
     console.log(`got page ${pn}`)
     const $ = cheerio.load(result.data)
     $('.lazyloaders-desktop .col-md-3').each(function() {
