@@ -59,54 +59,44 @@ const main = async argv => {
     console.log(`Already scraped ${portal} today, skipping.`)
     return false
   }
-  console.log('Gathering retailers...')
 
   const retailers = []
   let more = true
   let pn = 1
   while (more) {
-    try {
-      const result = await axios.get(
-        'https://www.aeroplan.com/estore/products.ep',
-        {
-          timeout: 5000,
-          params: {
-            cID: 'allretailers',
-            pn,
-          },
-        }
-      )
-      console.log(result)
-      console.log(`got page ${pn}`)
-      const $ = cheerio.load(result.data)
-      $('.lazyloaders-desktop .col-md-3').each(function() {
-        const $el = $(this)
-        const name = $el
-          .children('a.retailers-shop-now')[0]
-          .attribs.onclick.match(/'', '(.*)', ''/)[1]
-          .toUpperCase()
-        const multiplier = $el
-          .children('p.miles-per')
-          .text()
-          .match(/^(\d+) /)[1]
-        if (retailers.find(r => r.name === name)) {
-          more = false
-        } else {
-          retailers.push({
-            date: today,
-            portal,
-            name,
-            multiplier,
-          })
-        }
-      })
-      console.log(`${retailers.length} retailers so far`)
-    } catch (err) {
-      console.log(err)
-    }
+    const result = await axios.get(
+      'https://www.aeroplan.com/estore/products.ep',
+      {
+        params: {
+          cID: 'allretailers',
+          pn,
+        },
+      }
+    )
+    const $ = cheerio.load(result.data)
+    $('.lazyloaders-desktop .col-md-3').each(function() {
+      const $el = $(this)
+      const name = $el
+        .children('a.retailers-shop-now')[0]
+        .attribs.onclick.match(/'', '(.*)', ''/)[1]
+        .toUpperCase()
+      const multiplier = $el
+        .children('p.miles-per')
+        .text()
+        .match(/^(\d+) /)[1]
+      if (retailers.find(r => r.name === name)) {
+        more = false
+      } else {
+        retailers.push({
+          date: today,
+          portal,
+          name,
+          multiplier,
+        })
+      }
+    })
     pn++
   }
-  console.log('done gathering retailers')
 
   // Save today's scrape to the database
 
