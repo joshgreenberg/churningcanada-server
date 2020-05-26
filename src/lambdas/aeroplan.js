@@ -69,12 +69,14 @@ const main = async argv => {
       const result = await axios.get(
         'https://www.aeroplan.com/estore/products.ep',
         {
+          timeout: 5000,
           params: {
             cID: 'allretailers',
             pn,
           },
         }
       )
+      console.log(result)
       console.log(`got page ${pn}`)
       const $ = cheerio.load(result.data)
       $('.lazyloaders-desktop .col-md-3').each(function() {
