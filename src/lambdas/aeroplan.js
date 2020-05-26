@@ -1,30 +1,29 @@
-const db = require('../src/db')
+const db = require('../../src/db')
 const axios = require('axios')
 const cheerio = require('cheerio')
 const moment = require('moment')
 
 const portal = 'Aeroplan'
 
-const emoji = r => {
+const buildLine = r => {
   if (!r.yesterday) {
-    return `:boom: ${r.today}`
+    return `:boom: ${r.today} ${r.name}`
   }
   if (!r.today) {
-    return ':bomb:'
+    return `:bomb: ${r.name}`
   }
   if (r.today > r.yesterday) {
-    return `:arrow_up: ${r.today}`
+    return `:arrow\\_up: ${r.today} ${r.name}`
   }
   if (r.today < r.yesterday) {
-    return `:arrow_down: ${r.today}`
+    return `:arrow\\_down: ${r.today} ${r.name}`
   }
+  return ''
 }
 
 const buildMessage = diff => {
   const retailers = diff
-    .map(r => {
-      return `${emoji(r)} ${r.name}`
-    })
+    .map(r => buildLine(r))
     .join('\n')
     .trim()
 
@@ -49,7 +48,7 @@ const dispatch = async diff => {
   }
 }
 
-const main = async () => {
+const main = async argv => {
   const yesterday = moment()
     .subtract(1, 'days')
     .format('YYYY-MM-DD')
@@ -58,7 +57,6 @@ const main = async () => {
   const existing = await db.models.Retailer.find({date: today, portal})
   if (existing.length > 0) {
     console.log(`Already scraped ${portal} today, skipping.`)
-    await db.connection.close()
     return false
   }
 
@@ -107,7 +105,10 @@ const main = async () => {
 
   // Compare to yesterday's data and dispatch changes
 
-  const oldRetailers = await db.models.Retailer.find({date: yesterday, portal})
+  const oldRetailers = await db.models.Retailer.find({
+    date: yesterday,
+    portal,
+  })
   const diff = []
 
   const names = new Set(
@@ -129,11 +130,11 @@ const main = async () => {
     }
   })
 
-  if (diff.length > 0) {
-    await dispatch(diff.sort((a, b) => b.today - a.today))
+  if (diff.length > 0 && argv.dispatch) {
+    await dispatch(diff.sort((a, b) => b.today - a.today)).catch(e => {
+      console.log(e)
+    })
   }
-
-  await db.connection.close()
 }
 
-main()
+module.exports = main

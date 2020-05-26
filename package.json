@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "aeroplan": "node -r dotenv/config bin/aeroplan",
-    "dev": "nodemon bin/dev",
+    "dev": "nodemon -r dotenv/config src/server",
     "prettier": "npx prettier --write 'src/**/*.{js,ts}'",
     "scan": "node -r dotenv/config bin/scan",
     "start": "node src/server"
@@ -21,7 +21,7 @@
     "express": "^4.17.1",
     "js-yaml": "^3.13.1",
     "moment": "^2.26.0",
-    "mongoose": "^5.9.5",
+    "mongoose": "^5.9.16",
     "pg": "^7.15.1",
     "puppeteer": "^2.0.0",
     "yargs": "^15.3.1"
