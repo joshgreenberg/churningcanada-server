@@ -5,8 +5,6 @@ const moment = require('moment')
 
 const { TELEGRAM_BOT_API_TOKEN, TELEGRAM_CHAT_ID } = process.env
 
-const corsAnywhere = 'https://cors-anywhere.herokuapp.com/'
-
 const portal = 'Aeroplan'
 
 const emojis = {
@@ -93,7 +91,7 @@ const main = async () => {
   let pn = 1
   while (more) {
     const result = await axios.get(
-      `${corsAnywhere}https://www.aeroplan.com/estore/products.ep`,
+      'https://www.aeroplan.com/estore/products.ep',
       {
         params: {
           cID: 'allretailers',
