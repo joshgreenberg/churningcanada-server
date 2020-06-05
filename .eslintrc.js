@@ -4,9 +4,10 @@ module.exports = {
     node: true,
     es6: true,
   },
-  extends: ['prettier'],
-  plugins: ['prettier'],
   parserOptions: {
+    ecmaVersion: 2020,
     parser: 'babel-eslint',
   },
+  extends: ['eslint:recommended', 'prettier'],
+  plugins: ['prettier'],
 }

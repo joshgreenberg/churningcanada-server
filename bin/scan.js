@@ -1,8 +1,8 @@
 const yargs = require('yargs')
 const argv = yargs
-  .option('dispatch', {type: 'boolean'})
-  .option('offers', {type: 'boolean'})
-  .option('aeroplan', {type: 'boolean'}).argv
+  .option('dispatch', { type: 'boolean' })
+  .option('offers', { type: 'boolean' })
+  .option('aeroplan', { type: 'boolean' }).argv
 
 const main = async () => {
   const db = require('../src/db')
