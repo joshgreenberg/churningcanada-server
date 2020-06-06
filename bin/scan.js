@@ -34,16 +34,14 @@ const main = async () => {
     width: 1200,
     height: 900,
   })
-  if (process.env.NODE_ENV === 'production') {
-    await page.setRequestInterception(true)
-    page.on('request', (request) => {
-      if (['image', 'stylesheet'].includes(request.resourceType())) {
-        request.abort()
-      } else {
-        request.continue()
-      }
-    })
-  }
+  await page.setRequestInterception(true)
+  page.on('request', (request) => {
+    if (request.resourceType() === 'document') {
+      request.continue()
+    } else {
+      request.abort()
+    }
+  })
 
   const injected = { page, db }
 
