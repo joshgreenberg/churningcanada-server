@@ -25,6 +25,7 @@ const main = async () => {
       '--disable-accelerated-2d-canvas',
       '--disable-gpu',
     ],
+    headless: false,
   })
   const page = await browser.newPage()
   await page.setUserAgent(
