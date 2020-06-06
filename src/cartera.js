@@ -131,7 +131,7 @@ const main = async (argv, portal, url) => {
   })
   const page = await browser.newPage()
 
-  for (let i = 1; i <= 3; i++) {
+  for (let i = 1; i <= 5; i++) {
     await page.goto(url)
     let $ = cheerio.load(await page.content())
     await page.waitFor(3000 * i)

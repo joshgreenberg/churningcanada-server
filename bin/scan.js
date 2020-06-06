@@ -6,6 +6,13 @@ const argv = yargs
   .option('alaska', { type: 'boolean' })
   .option('american', { type: 'boolean' }).argv
 
+const portals = ['aeroplan', 'alaska', 'american']
+if (argv.allPortals) {
+  portals.forEach((portal) => {
+    argv[portal] = true
+  })
+}
+
 const main = async () => {
   const db = require('../src/db')
 
