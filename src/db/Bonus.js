@@ -4,7 +4,8 @@ const Bonus = new mongoose.Schema({
   date: String,
   portal: String,
   retailer: String,
-  multiplier: Number,
+  value: Number,
+  type: String,
 })
 
 module.exports = mongoose.model('Bonus', Bonus, 'bonuses')

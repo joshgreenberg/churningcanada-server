@@ -1,0 +1,187 @@
+const db = require('../src/db')
+const axios = require('axios')
+const cheerio = require('cheerio')
+const moment = require('moment')
+const puppeteer = require('puppeteer')
+
+const { TELEGRAM_BOT_API_TOKEN, TELEGRAM_CHAT_ID } = process.env
+
+const main = async (portal, url) => {
+  const emojis = {
+    telegram: {
+      ADD: '\u{1F4A5}',
+      REM: '\u{1F480}',
+      INC: '\u{2B06}',
+      DEC: '\u{2B07}',
+    },
+    slack: {
+      ADD: ':boom:',
+      REM: ':skull_and_crossbones:',
+      INC: ':arrow_up:',
+      DEC: ':arrow_down:',
+    },
+  }
+
+  const getEmoji = (bonus, format) => {
+    if (!bonus.yesterday) {
+      return emojis[format].ADD
+    }
+    if (!bonus.today) {
+      return emojis[format].REM
+    }
+    if (bonus.today > bonus.yesterday) {
+      return emojis[format].INC
+    }
+    if (bonus.today < bonus.yesterday) {
+      return emojis[format].DEC
+    }
+  }
+
+  const formatTelegram = (bonus) => {
+    const emoji = getEmoji(bonus, 'telegram')
+    return `${emoji} ${bonus.today || ''} ${bonus.retailer}`
+  }
+
+  // const formatSlack = (bonus) => {}
+
+  const buildMessage = (diff, formatter) => {
+    const lines = [`*${portal} portal updates:*`]
+
+    const fixedDiff = diff.filter((d) => d.type === 'fixed')
+    const multiDiff = diff.filter((d) => d.type === 'multiplier')
+
+    const fixedRetailers = fixedDiff
+      .map((b) => formatter(b))
+      .join('\n')
+      .trim()
+
+    const multiRetailers = multiDiff
+      .map((b) => formatter(b))
+      .join('\n')
+      .trim()
+
+    if (fixedRetailers.length > 0) {
+      lines.push('_Fixed bonuses:_')
+      lines.push(fixedRetailers)
+      lines.push()
+    }
+
+    if (multiRetailers.length > 0) {
+      lines.push('_Multipliers:_')
+      lines.push(multiRetailers)
+    }
+
+    return lines.join('\n').replace(/(\.|-|\+|!)/g, '\\$1')
+  }
+
+  const sendTelegram = async (diff) => {
+    const text = buildMessage(diff, formatTelegram)
+    const urlsafeText =
+      text.length > 4096 ? text.slice(0, 4000) + '\n\\.\\.\\.' : text
+    await axios.post(
+      `https://api.telegram.org/bot${TELEGRAM_BOT_API_TOKEN}/sendMessage`,
+      {
+        chat_id: TELEGRAM_CHAT_ID,
+        text: urlsafeText,
+        parse_mode: 'MarkdownV2',
+      }
+    )
+  }
+
+  // const sendSlack = async (diff) => {}
+
+  const dispatch = async (diff) => {
+    if (TELEGRAM_BOT_API_TOKEN && TELEGRAM_CHAT_ID) {
+      await sendTelegram(diff)
+    }
+  }
+  const yesterday = moment()
+    .subtract(1, 'days')
+    .format('YYYY-MM-DD')
+  const today = moment().format('YYYY-MM-DD')
+
+  const existing = await db.models.Bonus.find({ date: today, portal })
+
+  if (existing.length > 0) {
+    console.log(
+      `Already scraped ${existing.length} items from ${portal} today, skipping.`
+    )
+    return false
+  }
+
+  const browser = await puppeteer.launch({
+    args: process.env.PUPPETEER_ARGS.split(' '),
+  })
+  const page = await browser.newPage()
+  await page.goto(url)
+  let $ = cheerio.load(await page.content())
+  await page.waitFor(3000)
+  while ($('.mn_jumpList.mn_active .mn_disabled').length > 0) {
+    await page.waitFor(1000)
+    $ = cheerio.load(await page.content())
+  }
+
+  const bonuses = []
+  $('.mn_groupsWrap.mn_active .mn_groupLists li').each((i, el) => {
+    const $el = $(el)
+    const retailer = $el.find('.mn_merchName').text()
+    const valueString = (
+      $el.find('.mn_elevationNewValue').text() ||
+      $el.find('.mn_rebateValueWithCurrency').text()
+    ).trim()
+    if (valueString) {
+      const [value, typeString] = valueString.split(' ')
+      const type = typeString.includes('$') ? 'multiplier' : 'fixed'
+
+      bonuses.push({
+        date: today,
+        portal,
+        retailer,
+        value: Number(value),
+        type,
+      })
+    }
+  })
+
+  // Save today's scrape to the database
+  await db.models.Bonus.insertMany(bonuses)
+
+  // Compare to yesterday's data and dispatch changes
+  const oldBonuses = await db.models.Bonus.find({
+    date: yesterday,
+    portal,
+  })
+  const diff = []
+  const retailerNames = new Set(
+    bonuses.map((b) => b.retailer).concat(oldBonuses.map((b) => b.retailer))
+  )
+  retailerNames.forEach((retailer) => {
+    const oldB = oldBonuses.find((b) => b.retailer === retailer)
+    const newB = bonuses.find((b) => b.retailer === retailer)
+
+    const oldV = oldB && oldB.value
+    const newV = newB && newB.value
+
+    if (oldV != newV) {
+      diff.push({
+        retailer,
+        yesterday: oldV,
+        today: newV,
+        type: (oldB && oldB.type) || (newB && newB.type),
+      })
+    }
+  })
+
+  if (diff.length > 0) {
+    await dispatch(diff.sort((a, b) => b.today - a.today)).catch((e) => {
+      console.log(e)
+    })
+  }
+
+  console.log(
+    `Found ${bonuses.length} ${portal} retailers, with ${diff.length} updates.`
+  )
+  await browser.close()
+}
+
+module.exports = main

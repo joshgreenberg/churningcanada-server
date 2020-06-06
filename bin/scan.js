@@ -2,7 +2,9 @@ const yargs = require('yargs')
 const argv = yargs
   .option('dispatch', { type: 'boolean' })
   .option('offers', { type: 'boolean' })
-  .option('aeroplan', { type: 'boolean' }).argv
+  .option('aeroplan', { type: 'boolean' })
+  .option('alaska', { type: 'boolean' })
+  .option('american', { type: 'boolean' }).argv
 
 const main = async () => {
   const db = require('../src/db')
@@ -15,6 +17,16 @@ const main = async () => {
   if (argv.aeroplan) {
     console.log('Scanning Aeroplan for updates...')
     await require('../src/lambdas/aeroplan')(argv)
+  }
+
+  if (argv.alaska) {
+    console.log('Scanning Alaska for updates...')
+    await require('../src/lambdas/alaska')(argv)
+  }
+
+  if (argv.american) {
+    console.log('Scanning AAdvantage for updates...')
+    await require('../src/lambdas/american')(argv)
   }
 
   await db.connection.close()

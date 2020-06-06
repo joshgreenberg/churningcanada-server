@@ -49,7 +49,7 @@ const buildMessage = (diff, formatter) => {
     .map((b) => formatter(b))
     .join('\n')
     .trim()
-  return `*${portal} portal updates:*\n${retailers}`
+  return `*${portal} portal updates*\n${retailers}`
 }
 
 const sendTelegram = async (diff) => {
@@ -110,7 +110,7 @@ const main = async () => {
         .children('a.retailers-shop-now')[0]
         .attribs.onclick.match(/'', '(.*)', ''/)[1]
         .toUpperCase()
-      const multiplier = $el
+      const value = $el
         .children('p.miles-per')
         .text()
         .match(/^(\d+) /)[1]
@@ -121,7 +121,8 @@ const main = async () => {
           date: today,
           portal,
           retailer,
-          multiplier: Number(multiplier),
+          value: Number(value),
+          type: 'multiplier',
         })
       }
     })
