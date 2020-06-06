@@ -109,7 +109,8 @@ const main = async (argv, { page, db }) => {
         waitUntil: 'domcontentloaded',
       }
     )
-    const $ = cheerio.load(await page.content())
+    const pageContent = await page.content()
+    const $ = cheerio.load(pageContent)
     $('#infinite-categ .col-md-3').each(function() {
       const $el = $(this)
       const retailer = $el
@@ -134,6 +135,7 @@ const main = async (argv, { page, db }) => {
     })
     if (bonuses.length == 0) {
       console.log('Error scraping website')
+      console.log(pageContent)
       break
     }
     pn++
