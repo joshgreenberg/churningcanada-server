@@ -18,13 +18,6 @@ if (argv.allPortals) {
 const main = async () => {
   const db = require('../src/db')
   const browser = await puppeteer.launch({
-    args: [
-      '--ignore-certificate-errors',
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-accelerated-2d-canvas',
-      '--disable-gpu',
-    ],
     headless: false,
   })
   const page = await browser.newPage()
