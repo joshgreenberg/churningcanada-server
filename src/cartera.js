@@ -1,8 +1,6 @@
-const db = require('../src/db')
 const axios = require('axios')
 const cheerio = require('cheerio')
 const moment = require('moment')
-const puppeteer = require('puppeteer')
 
 const {
   TELEGRAM_BOT_API_TOKEN,
@@ -10,7 +8,7 @@ const {
   SLACK_WEBHOOK_URL,
 } = process.env
 
-const main = async (argv, portal, url) => {
+const main = async (argv, { browser, page, db }, { portal, url }) => {
   const emojis = {
     telegram: {
       ADD: '\u{1F4A5}',
@@ -126,10 +124,6 @@ const main = async (argv, portal, url) => {
 
   const bonuses = []
 
-  const browser = await puppeteer.launch({
-    args: process.env.PUPPETEER_ARGS.split(' '),
-  })
-  const page = await browser.newPage()
   await page.goto(url)
   await page.waitForSelector('.mn_jumpList.mn_active')
   let $ = cheerio.load(await page.content())
@@ -197,7 +191,6 @@ const main = async (argv, portal, url) => {
   console.log(
     `Found ${bonuses.length} ${portal} retailers, with ${diff.length} updates.`
   )
-  await browser.close()
 }
 
 module.exports = main

@@ -1,12 +1,10 @@
 require('../../lib/async')
-const db = require('../../src/db')
 const fs = require('fs')
 const yaml = require('js-yaml')
 const axios = require('axios')
 const cheerio = require('cheerio')
-const puppeteer = require('puppeteer')
 
-const stringToSlug = str =>
+const stringToSlug = (str) =>
   str
     .toLowerCase()
     .replace(/\s+/g, '-')
@@ -30,18 +28,18 @@ const virtualDOM = async (offer, page) => {
   }
 }
 
-const formatTelegram = offers => {
+const formatTelegram = (offers) => {
   return offers
-    .map(({name}) => {
+    .map(({ name }) => {
       const url = `${process.env.CLIENT_URL}/${stringToSlug(name)}`
       return `[${name}](${url})`
     })
     .join('\n')
 }
 
-const formatSlack = offers => {
+const formatSlack = (offers) => {
   return offers
-    .map(({name}) => {
+    .map(({ name }) => {
       const url = `${process.env.CLIENT_URL}/${stringToSlug(name)}`
       return `<${url}|${name}>`
     })
@@ -85,12 +83,7 @@ const dispatch = async (updatedOffers, newOffers) => {
   }
 }
 
-const main = async argv => {
-  const browser = await puppeteer.launch({
-    args: process.env.PUPPETEER_ARGS.split(' '),
-  })
-  const page = await browser.newPage()
-
+const main = async (argv, { browser, page, db }) => {
   const file = fs.readFileSync(
     `${__dirname}/../../src/data/offers.yaml`,
     'utf8'
@@ -100,9 +93,9 @@ const main = async argv => {
   const newOffers = []
   const oldOffers = await db.models.Offer.find()
 
-  await offers.asyncForEach(async offer => {
+  await offers.asyncForEach(async (offer) => {
     const oldOffer = oldOffers
-      .filter(o => o.name === offer.name)
+      .filter((o) => o.name === offer.name)
       .sort((a, b) => b.timestamp - a.timestamp)[0]
 
     const footnotes = []
@@ -172,8 +165,6 @@ const main = async argv => {
       newOffers.sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0))
     )
   }
-
-  await browser.close()
 }
 
 module.exports = main

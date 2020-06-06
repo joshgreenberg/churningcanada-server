@@ -1,4 +1,3 @@
-const db = require('../../src/db')
 const axios = require('axios')
 const cheerio = require('cheerio')
 const moment = require('moment')
@@ -85,7 +84,7 @@ const dispatch = async (diff) => {
   }
 }
 
-const main = async (argv) => {
+const main = async (argv, { browser, page, db }) => {
   const yesterday = moment()
     .subtract(1, 'days')
     .format('YYYY-MM-DD')

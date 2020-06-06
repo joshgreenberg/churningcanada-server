@@ -1,3 +1,4 @@
+const puppeteer = require('puppeteer')
 const yargs = require('yargs')
 const argv = yargs
   .option('dispatch', { type: 'boolean' })
@@ -16,11 +17,17 @@ if (argv.allPortals) {
 
 const main = async () => {
   const db = require('../src/db')
+  const browser = await puppeteer.launch({
+    args: process.env.PUPPETEER_ARGS.split(' '),
+  })
+  const page = await browser.newPage()
+
+  const injected = { browser, page, db }
 
   if (argv.offers) {
     console.log('Scanning offers for updates...')
     try {
-      await require('../src/lambdas/offers')(argv)
+      await require('../src/lambdas/offers')(argv, injected)
     } catch (err) {
       console.log(err)
     }
@@ -29,7 +36,7 @@ const main = async () => {
   if (argv.aeroplan) {
     console.log('Scanning Aeroplan for updates...')
     try {
-      await require('../src/lambdas/aeroplan')(argv)
+      await require('../src/lambdas/aeroplan')(argv, injected)
     } catch (err) {
       console.log(err)
     }
@@ -38,7 +45,7 @@ const main = async () => {
   if (argv.alaska) {
     console.log('Scanning Alaska for updates...')
     try {
-      await require('../src/lambdas/alaska')(argv)
+      await require('../src/lambdas/alaska')(argv, injected)
     } catch (err) {
       console.log(err)
     }
@@ -47,12 +54,13 @@ const main = async () => {
   if (argv.american) {
     console.log('Scanning AAdvantage for updates...')
     try {
-      await require('../src/lambdas/american')(argv)
+      await require('../src/lambdas/american')(argv, injected)
     } catch (err) {
       console.log(err)
     }
   }
 
+  await browser.close()
   await db.connection.close()
 }
 
