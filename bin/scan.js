@@ -2,6 +2,7 @@ const yargs = require('yargs')
 const argv = yargs
   .option('dispatch', { type: 'boolean' })
   .option('offers', { type: 'boolean' })
+  .option('allPortals', { type: 'boolean' })
   .option('aeroplan', { type: 'boolean' })
   .option('alaska', { type: 'boolean' })
   .option('american', { type: 'boolean' }).argv
