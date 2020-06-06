@@ -104,7 +104,11 @@ const main = async (argv, { page, db }) => {
   let pn = 1
   while (more) {
     await page.goto(
-      `https://www.aeroplan.com/estore/all-retailers/callretailers-p${pn}.html`
+      `https://www.aeroplan.com/estore/all-retailers/callretailers-p${pn}.html`,
+      {
+        timeout: 60000,
+        waitUntil: 'domcontentloaded',
+      }
     )
     const $ = cheerio.load(await page.content())
     $('#infinite-categ .col-md-3').each(function() {
