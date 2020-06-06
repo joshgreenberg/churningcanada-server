@@ -100,45 +100,52 @@ const main = async (argv, { page, db }) => {
   }
 
   const bonuses = []
-  let more = true
-  let pn = 1
-  while (more) {
-    await page.goto(
-      `https://www.aeroplan.com/estore/all-retailers/callretailers-p${pn}.html`,
-      {
-        waitUntil: 'domcontentloaded',
+  for (let retry = 1; retry <= 3; retry++) {
+    let more = true
+    let pn = 1
+    while (more) {
+      await page.goto(
+        `https://www.aeroplan.com/estore/all-retailers/callretailers-p${pn}.html`,
+        {
+          waitUntil: 'domcontentloaded',
+        }
+      )
+      const pageContent = await page.content()
+      const $ = cheerio.load(pageContent)
+      $('#infinite-categ .col-md-3').each(function() {
+        const $el = $(this)
+        const retailer = $el
+          .children('a.retailers-shop-now')[0]
+          .attribs.onclick.match(/'', '(.*)', ''/)[1]
+          .toUpperCase()
+        const value = $el
+          .children('p.miles-per')
+          .text()
+          .match(/^(\d+) /)[1]
+        if (bonuses.find((b) => b.retailer === retailer)) {
+          more = false
+        } else {
+          bonuses.push({
+            date: today,
+            portal,
+            retailer,
+            value: Number(value),
+            type: 'multiplier',
+          })
+        }
+      })
+      if (bonuses.length == 0) {
+        break
       }
-    )
-    const pageContent = await page.content()
-    const $ = cheerio.load(pageContent)
-    $('#infinite-categ .col-md-3').each(function() {
-      const $el = $(this)
-      const retailer = $el
-        .children('a.retailers-shop-now')[0]
-        .attribs.onclick.match(/'', '(.*)', ''/)[1]
-        .toUpperCase()
-      const value = $el
-        .children('p.miles-per')
-        .text()
-        .match(/^(\d+) /)[1]
-      if (bonuses.find((b) => b.retailer === retailer)) {
-        more = false
-      } else {
-        bonuses.push({
-          date: today,
-          portal,
-          retailer,
-          value: Number(value),
-          type: 'multiplier',
-        })
-      }
-    })
-    if (bonuses.length == 0) {
-      console.log('Error scraping website')
-      console.log(pageContent)
+      pn++
+    }
+    if (bonuses.length > 0) {
       break
     }
-    pn++
+  }
+  if (bonuses.length == 0) {
+    console.log('Error scraping website :(')
+    return false
   }
 
   // Save today's scrape to the database
