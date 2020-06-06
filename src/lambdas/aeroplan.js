@@ -104,11 +104,11 @@ const main = async (argv, { page, db }) => {
   let pn = 1
   while (more) {
     await page.goto(
-      `https://www.aeroplan.com/estore/products.ep?cID=allretailers&pn=${pn}`
+      `https://www.aeroplan.com/estore/all-retailers/callretailers-p${pn}.html`
     )
-    console.log(pn)
+    await page.waitForSelector('#infinite-categ')
     const $ = cheerio.load(await page.content())
-    $('.lazyloaders-desktop .col-md-3').each(function() {
+    $('#infinite-categ .col-md-3').each(function() {
       const $el = $(this)
       const retailer = $el
         .children('a.retailers-shop-now')[0]
