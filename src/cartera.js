@@ -124,39 +124,47 @@ const main = async (argv, portal, url) => {
     return false
   }
 
+  const bonuses = []
+
   const browser = await puppeteer.launch({
     args: process.env.PUPPETEER_ARGS.split(' '),
   })
   const page = await browser.newPage()
-  await page.goto(url)
-  let $ = cheerio.load(await page.content())
-  await page.waitFor(3000)
-  while ($('.mn_jumpList.mn_active .mn_disabled').length > 0) {
-    await page.waitFor(1000)
-    $ = cheerio.load(await page.content())
-  }
 
-  const bonuses = []
-  $('.mn_groupsWrap.mn_active .mn_groupLists li').each((i, el) => {
-    const $el = $(el)
-    const retailer = $el.find('.mn_merchName').text()
-    const valueString = (
-      $el.find('.mn_elevationNewValue').text() ||
-      $el.find('.mn_rebateValueWithCurrency').text()
-    ).trim()
-    if (valueString) {
-      const [value, typeString] = valueString.split(' ')
-      const type = typeString.includes('$') ? 'multiplier' : 'fixed'
-
-      bonuses.push({
-        date: today,
-        portal,
-        retailer,
-        value: Number(value),
-        type,
-      })
+  for (let i = 1; i <= 3; i++) {
+    await page.goto(url)
+    let $ = cheerio.load(await page.content())
+    await page.waitFor(3000 * i)
+    while ($('.mn_jumpList.mn_active .mn_disabled').length > 0) {
+      await page.waitFor(1000)
+      $ = cheerio.load(await page.content())
     }
-  })
+
+    $('.mn_groupsWrap.mn_active .mn_groupLists li').each((i, el) => {
+      const $el = $(el)
+      const retailer = $el.find('.mn_merchName').text()
+      const valueString = (
+        $el.find('.mn_elevationNewValue').text() ||
+        $el.find('.mn_rebateValueWithCurrency').text()
+      ).trim()
+      if (valueString) {
+        const [value, typeString] = valueString.split(' ')
+        const type = typeString.includes('$') ? 'multiplier' : 'fixed'
+
+        bonuses.push({
+          date: today,
+          portal,
+          retailer,
+          value: Number(value),
+          type,
+        })
+      }
+    })
+    if (bonuses.length > 0) {
+      break
+    }
+    console.log('None found, retrying...')
+  }
 
   // Save today's scrape to the database
   await db.models.Bonus.insertMany(bonuses)
