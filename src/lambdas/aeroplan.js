@@ -129,6 +129,11 @@ const main = async (argv, { db }) => {
         })
       }
     })
+    if (bonuses.length == 0) {
+      console.log('Error scraping website')
+      console.log(result.data)
+      break
+    }
     pn++
   }
 
