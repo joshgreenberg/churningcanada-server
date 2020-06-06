@@ -84,7 +84,7 @@ const dispatch = async (diff) => {
   }
 }
 
-const main = async (argv, { db }) => {
+const main = async (argv, { page, db }) => {
   const yesterday = moment()
     .subtract(1, 'days')
     .format('YYYY-MM-DD')
@@ -103,11 +103,12 @@ const main = async (argv, { db }) => {
   let more = true
   let pn = 1
   while (more) {
-    const result = await axios.get(
-      `https://www.aeroplan.com/estore/all-retailers/callretailers-p${pn}.html`
+    await page.goto(
+      `https://www.aeroplan.com/estore/products.ep?cID=allretailers&pn=${pn}`
     )
-    const $ = cheerio.load(result.data)
-    $('#infinite-categ .col-md-3').each(function() {
+    console.log(pn)
+    const $ = cheerio.load(await page.content())
+    $('.lazyloaders-desktop .col-md-3').each(function() {
       const $el = $(this)
       const retailer = $el
         .children('a.retailers-shop-now')[0]
@@ -131,7 +132,6 @@ const main = async (argv, { db }) => {
     })
     if (bonuses.length == 0) {
       console.log('Error scraping website')
-      console.log(result.data)
       break
     }
     pn++

@@ -21,6 +21,13 @@ const main = async () => {
     args: process.env.PUPPETEER_ARGS.split(' '),
   })
   const page = await browser.newPage()
+  await page.setUserAgent(
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36'
+  )
+  await page.setViewport({
+    width: 1200,
+    height: 900,
+  })
 
   const injected = { page, db }
 
