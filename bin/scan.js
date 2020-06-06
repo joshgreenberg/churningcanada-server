@@ -18,7 +18,13 @@ if (argv.allPortals) {
 const main = async () => {
   const db = require('../src/db')
   const browser = await puppeteer.launch({
-    args: process.env.PUPPETEER_ARGS.split(' '),
+    args: [
+      '--ignore-certificate-errors',
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-accelerated-2d-canvas',
+      '--disable-gpu',
+    ],
   })
   const page = await browser.newPage()
   await page.setUserAgent(
@@ -28,6 +34,16 @@ const main = async () => {
     width: 1200,
     height: 900,
   })
+  if (process.env.NODE_ENV === 'production') {
+    await page.setRequestInterception(true)
+    page.on('request', (request) => {
+      if (['image', 'stylesheet'].includes(request.resourceType())) {
+        request.abort()
+      } else {
+        request.continue()
+      }
+    })
+  }
 
   const injected = { page, db }
 
