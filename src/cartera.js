@@ -103,9 +103,9 @@ const main = async (argv, portal, url) => {
   }
 
   const dispatch = async (diff) => {
-    // if (TELEGRAM_BOT_API_TOKEN && TELEGRAM_CHAT_ID) {
-    //   await sendTelegram(diff)
-    // }
+    if (TELEGRAM_BOT_API_TOKEN && TELEGRAM_CHAT_ID) {
+      await sendTelegram(diff)
+    }
     if (SLACK_WEBHOOK_URL) {
       await sendSlack(diff)
     }
