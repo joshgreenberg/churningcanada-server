@@ -8,7 +8,7 @@ const {
   SLACK_WEBHOOK_URL,
 } = process.env
 
-const main = async (argv, { browser, page, db }, { portal, url }) => {
+const main = async (argv, { page, db }, { portal, url }) => {
   const emojis = {
     telegram: {
       ADD: '\u{1F4A5}',

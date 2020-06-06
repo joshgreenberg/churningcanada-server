@@ -22,7 +22,7 @@ const main = async () => {
   })
   const page = await browser.newPage()
 
-  const injected = { browser, page, db }
+  const injected = { page, db }
 
   if (argv.offers) {
     console.log('Scanning offers for updates...')

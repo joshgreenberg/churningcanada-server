@@ -83,7 +83,7 @@ const dispatch = async (updatedOffers, newOffers) => {
   }
 }
 
-const main = async (argv, { browser, page, db }) => {
+const main = async (argv, { page, db }) => {
   const file = fs.readFileSync(
     `${__dirname}/../../src/data/offers.yaml`,
     'utf8'
