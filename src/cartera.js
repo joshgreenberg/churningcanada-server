@@ -4,9 +4,13 @@ const cheerio = require('cheerio')
 const moment = require('moment')
 const puppeteer = require('puppeteer')
 
-const { TELEGRAM_BOT_API_TOKEN, TELEGRAM_CHAT_ID } = process.env
+const {
+  TELEGRAM_BOT_API_TOKEN,
+  TELEGRAM_CHAT_ID,
+  SLACK_WEBHOOK_URL,
+} = process.env
 
-const main = async (portal, url) => {
+const main = async (argv, portal, url) => {
   const emojis = {
     telegram: {
       ADD: '\u{1F4A5}',
@@ -39,10 +43,14 @@ const main = async (portal, url) => {
 
   const formatTelegram = (bonus) => {
     const emoji = getEmoji(bonus, 'telegram')
-    return `${emoji} ${bonus.today || ''} ${bonus.retailer}`
+    const retailer = bonus.retailer.replace(/(\.|-|\+|!)/g, '\\$1')
+    return `${emoji} ${bonus.today || ''} ${retailer}`
   }
 
-  // const formatSlack = (bonus) => {}
+  const formatSlack = (bonus) => {
+    const emoji = getEmoji(bonus, 'slack')
+    return `${emoji} ${bonus.today || ''} ${bonus.retailer}`
+  }
 
   const buildMessage = (diff, formatter) => {
     const lines = [`*${portal} portal updates:*`]
@@ -63,7 +71,7 @@ const main = async (portal, url) => {
     if (fixedRetailers.length > 0) {
       lines.push('_Fixed bonuses:_')
       lines.push(fixedRetailers)
-      lines.push()
+      lines.push(' ')
     }
 
     if (multiRetailers.length > 0) {
@@ -71,7 +79,7 @@ const main = async (portal, url) => {
       lines.push(multiRetailers)
     }
 
-    return lines.join('\n').replace(/(\.|-|\+|!)/g, '\\$1')
+    return lines.join('\n')
   }
 
   const sendTelegram = async (diff) => {
@@ -88,11 +96,18 @@ const main = async (portal, url) => {
     )
   }
 
-  // const sendSlack = async (diff) => {}
+  const sendSlack = async (diff) => {
+    await axios.post(SLACK_WEBHOOK_URL, {
+      text: buildMessage(diff, formatSlack),
+    })
+  }
 
   const dispatch = async (diff) => {
-    if (TELEGRAM_BOT_API_TOKEN && TELEGRAM_CHAT_ID) {
-      await sendTelegram(diff)
+    // if (TELEGRAM_BOT_API_TOKEN && TELEGRAM_CHAT_ID) {
+    //   await sendTelegram(diff)
+    // }
+    if (SLACK_WEBHOOK_URL) {
+      await sendSlack(diff)
     }
   }
   const yesterday = moment()
@@ -172,7 +187,7 @@ const main = async (portal, url) => {
     }
   })
 
-  if (diff.length > 0) {
+  if (diff.length > 0 && argv.dispatch) {
     await dispatch(diff.sort((a, b) => b.today - a.today)).catch((e) => {
       console.log(e)
     })

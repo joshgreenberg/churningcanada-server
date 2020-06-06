@@ -3,7 +3,11 @@ const axios = require('axios')
 const cheerio = require('cheerio')
 const moment = require('moment')
 
-const { TELEGRAM_BOT_API_TOKEN, TELEGRAM_CHAT_ID } = process.env
+const {
+  TELEGRAM_BOT_API_TOKEN,
+  TELEGRAM_CHAT_ID,
+  SLACK_WEBHOOK_URL,
+} = process.env
 
 const portal = 'Aeroplan'
 
@@ -42,7 +46,10 @@ const formatTelegram = (bonus) => {
   return `${emoji} ${bonus.today || ''} ${bonus.retailer}`
 }
 
-// const formatSlack = (bonus) => {}
+const formatSlack = (bonus) => {
+  const emoji = getEmoji(bonus, 'slack')
+  return `${emoji} ${bonus.today || ''} ${bonus.retailer}`
+}
 
 const buildMessage = (diff, formatter) => {
   const retailers = diff
@@ -63,15 +70,22 @@ const sendTelegram = async (diff) => {
   )
 }
 
-// const sendSlack = async (diff) => {}
+const sendSlack = async (diff) => {
+  await axios.post(SLACK_WEBHOOK_URL, {
+    text: buildMessage(diff, formatSlack),
+  })
+}
 
 const dispatch = async (diff) => {
-  if (TELEGRAM_BOT_API_TOKEN && TELEGRAM_CHAT_ID) {
-    await sendTelegram(diff)
+  // if (TELEGRAM_BOT_API_TOKEN && TELEGRAM_CHAT_ID) {
+  //   await sendTelegram(diff)
+  // }
+  if (SLACK_WEBHOOK_URL) {
+    await sendSlack(diff)
   }
 }
 
-const main = async () => {
+const main = async (argv) => {
   const yesterday = moment()
     .subtract(1, 'days')
     .format('YYYY-MM-DD')
@@ -157,7 +171,7 @@ const main = async () => {
     }
   })
 
-  if (diff.length > 0) {
+  if (diff.length > 0 && argv.dispatch) {
     await dispatch(diff.sort((a, b) => b.today - a.today)).catch((e) => {
       console.log(e)
     })

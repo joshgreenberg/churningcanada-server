@@ -11,22 +11,38 @@ const main = async () => {
 
   if (argv.offers) {
     console.log('Scanning offers for updates...')
-    await require('../src/lambdas/offers')(argv)
+    try {
+      await require('../src/lambdas/offers')(argv)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   if (argv.aeroplan) {
     console.log('Scanning Aeroplan for updates...')
-    await require('../src/lambdas/aeroplan')(argv)
+    try {
+      await require('../src/lambdas/aeroplan')(argv)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   if (argv.alaska) {
     console.log('Scanning Alaska for updates...')
-    await require('../src/lambdas/alaska')(argv)
+    try {
+      await require('../src/lambdas/alaska')(argv)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   if (argv.american) {
     console.log('Scanning AAdvantage for updates...')
-    await require('../src/lambdas/american')(argv)
+    try {
+      await require('../src/lambdas/american')(argv)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   await db.connection.close()
