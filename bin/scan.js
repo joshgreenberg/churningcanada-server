@@ -18,7 +18,15 @@ if (argv.allPortals) {
 const main = async () => {
   const db = require('../src/db')
   const browser = await puppeteer.launch({
-    headless: false,
+    args: [
+      '--ignore-certificate-errors',
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-accelerated-2d-canvas',
+      '--disable-gpu',
+      '--disable-dv-shm-usage',
+      '--single-process',
+    ],
   })
   const page = await browser.newPage()
   await page.setUserAgent(
