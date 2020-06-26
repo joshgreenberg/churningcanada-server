@@ -38,10 +38,10 @@ const main = async () => {
   })
   await page.setRequestInterception(true)
   page.on('request', (request) => {
-    if (request.resourceType() === 'document') {
-      request.continue()
-    } else {
+    if (['image', 'stylesheet', 'font'].includes(request.resourceType())) {
       request.abort()
+    } else {
+      request.continue()
     }
   })
 

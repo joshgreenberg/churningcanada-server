@@ -129,23 +129,32 @@ const main = async (argv, { page, db }) => {
         }
       })
     } catch (err) {
+      // error
       console.log(`[!!!] ${offer.name}: ${err.message}`)
     }
 
-    if (footnotes.length == 0) {
-      console.log(`[---] ${offer.name}`)
-      return
+    if (offer.name == 'AMEX Platinum') {
+      // TROUBLESHOOTING
+      console.log(footnotes)
     }
 
     if (oldOffer && oldOffer.footnotes.join('\n') === footnotes.join('\n')) {
+      // unchanged, skip
       console.log(`[   ] ${offer.name}`)
       return
     }
 
     if (oldOffer) {
-      console.log(`[***] ${offer.name}`)
+      if (footnotes.length === 0) {
+        // removed offer
+        console.log(`[---] ${offer.name}`)
+      } else {
+        // updated offer
+        console.log(`[***] ${offer.name}`)
+      }
       updatedOffers.push(offer)
     } else {
+      // new offer
       console.log(`[NEW] ${offer.name}`)
       newOffers.push(offer)
     }

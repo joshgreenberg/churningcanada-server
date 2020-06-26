@@ -1,4 +1,4 @@
-const cartera = require('../cartera')
+const cartera = require('./_cartera')
 
 const main = async (argv, injected) => {
   const portal = 'Alaska'

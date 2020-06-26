@@ -108,9 +108,15 @@ const main = async (argv, { page, db }, { portal, url }) => {
       await sendSlack(diff)
     }
   }
-  const yesterday = moment()
-    .subtract(1, 'days')
-    .format('YYYY-MM-DD')
+
+  const { date: mostRecent } = await db.models.Bonus.find({ portal })
+    .limit(1)
+    .sort({ date: -1 })
+  const yesterday =
+    mostRecent ||
+    moment()
+      .subtract(2, 'days')
+      .format('YYYY-MM-DD')
   const today = moment().format('YYYY-MM-DD')
 
   const existing = await db.models.Bonus.find({ date: today, portal })

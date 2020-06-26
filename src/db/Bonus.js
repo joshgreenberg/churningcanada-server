@@ -5,6 +5,7 @@ const Bonus = new mongoose.Schema({
   portal: String,
   retailer: String,
   value: Number,
+  baseValue: Number,
   type: String,
 })
 
