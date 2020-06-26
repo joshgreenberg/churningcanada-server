@@ -167,7 +167,7 @@ const main = async (argv, { page, db }) => {
     })
   })
 
-  if (updatedOffers.length > 0 || (newOffers.length > 0 && argv.dispatch)) {
+  if (argv.dispatch && (updatedOffers.length > 0 || newOffers.length > 0)) {
     await dispatch(
       updatedOffers.sort((a, b) =>
         a.name > b.name ? 1 : a.name < b.name ? -1 : 0
