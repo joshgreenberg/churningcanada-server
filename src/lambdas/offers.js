@@ -96,6 +96,10 @@ const main = async (argv, { page, db }) => {
   const oldOffers = await db.models.Offer.find()
 
   await offers.asyncForEach(async (offer) => {
+    if (offer.name != 'AMEX Platinum') {
+      return
+    }
+
     const oldOffer = oldOffers
       .filter((o) => o.name === offer.name)
       .sort((a, b) => b.timestamp - a.timestamp)[0]
@@ -135,10 +139,8 @@ const main = async (argv, { page, db }) => {
       console.log(`[!!!] ${offer.name}: ${err.message}`)
     }
 
-    if (offer.name == 'AMEX Platinum') {
-      // TROUBLESHOOTING
-      console.log(footnotes)
-    }
+    // TROUBLESHOOTING
+    console.log(footnotes)
 
     if (oldOffer && oldOffer.footnotes.join('\n') === footnotes.join('\n')) {
       // unchanged, skip
