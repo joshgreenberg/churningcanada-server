@@ -94,6 +94,7 @@
     - '.product-variables-features > .product-feature:contains("Annual fee")'
     - '.why-amex__copy'
     - 'ol.orderlist li'
+  archive: true
 -
   name: AMEX Air Miles Platinum
   url: https://www.americanexpress.com/ca/en/credit-cards/air-miles-platinum-credit-card/
@@ -254,6 +255,7 @@
     - '.banner + section h1'
     - '.banner + section h1 + p'
     - '#collapseExample5 .table-row'
+  archive: true
 -
   name: RBC Avion VI - 2020 35K
   url: https://www.rbcroyalbank.com/credit-cards/campaign/iav/2001/

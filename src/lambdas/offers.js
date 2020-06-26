@@ -96,6 +96,10 @@ const main = async (argv, { page, db }) => {
   const oldOffers = await db.models.Offer.find()
 
   await offers.asyncForEach(async (offer) => {
+    if (offer.archive) {
+      return
+    }
+
     const oldOffer = oldOffers
       .filter((o) => o.name === offer.name)
       .sort((a, b) => b.timestamp - a.timestamp)[0]
