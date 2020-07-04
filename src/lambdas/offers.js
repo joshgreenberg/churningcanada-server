@@ -3,6 +3,7 @@ const fs = require('fs')
 const yaml = require('js-yaml')
 const axios = require('axios')
 const cheerio = require('cheerio')
+const moment = require('moment')
 
 const stringToSlug = (str) =>
   str
@@ -102,7 +103,7 @@ const main = async (argv, { page, db }) => {
 
     const oldOffer = oldOffers
       .filter((o) => o.name === offer.name)
-      .sort((a, b) => b.timestamp - a.timestamp)[0]
+      .sort((a, b) => (b.date > a.date ? 1 : b.date < a.date ? -1 : 0))[0]
 
     const footnotes = []
     try {
@@ -150,6 +151,29 @@ const main = async (argv, { page, db }) => {
         // removed offer
         console.log(`[---] ${offer.name}`)
       } else {
+        if (
+          oldOffer.footnotes.length === 0 &&
+          oldOffer.date ==
+            moment(offer.date)
+              .subtract(1, 'days')
+              .format('YYYY-MM-DD')
+        ) {
+          await db.models.Offer.deleteOne({
+            name: oldOffer.name,
+            date: oldOffer.date,
+          })
+          const olderOffer = oldOffers
+            .filter((o) => o.name === offer.name)
+            .sort((a, b) => (b.date > a.date ? 1 : b.date < a.date ? -1 : 0))[1]
+          if (
+            olderOffer &&
+            olderOffer.footnotes.join('\n') === footnotes.join('\n')
+          ) {
+            // revert yesterday's blank, skip
+            console.log(`[<<<] ${offer.name}`)
+            return
+          }
+        }
         // updated offer
         console.log(`[***] ${offer.name}`)
       }
@@ -160,9 +184,10 @@ const main = async (argv, { page, db }) => {
       newOffers.push(offer)
     }
 
+    const today = moment().format('YYYY-MM-DD')
     await db.models.Offer.create({
       name: offer.name,
-      timestamp: parseInt(Date.now() / 1000),
+      date: today,
       footnotes,
     })
   })

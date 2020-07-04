@@ -8,7 +8,7 @@ const db = require('./db')
 
 const PORT = process.env.PORT || 3000
 
-const stringToSlug = str => str.replace(/\s+/g, '-').replace(/-+/g, '-')
+const stringToSlug = (str) => str.replace(/\s+/g, '-').replace(/-+/g, '-')
 
 const file = fs.readFileSync(`${__dirname}/data/offers.yaml`, 'utf8')
 const products = yaml.safeLoad(file)
@@ -19,7 +19,7 @@ products.sort((a, b) =>
     ? 1
     : 0
 )
-products.forEach(product => {
+products.forEach((product) => {
   product.slug = stringToSlug(product.name).toLowerCase()
 })
 
@@ -29,11 +29,11 @@ app.use(bodyParser.json())
 app.get('/', async (req, res) => {
   const offers = await db.models.Offer.find()
   res.json(
-    products.map(product => ({
+    products.map((product) => ({
       ...product,
       offers: offers
-        .sort((a, b) => b.timestamp - a.timestamp)
-        .filter(offer => offer.name === product.name),
+        .sort((a, b) => (b.date > a.date ? 1 : b.date < a.date ? -1 : 0))
+        .filter((offer) => offer.name === product.name),
     }))
   )
 })
