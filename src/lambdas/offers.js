@@ -100,7 +100,7 @@ const main = async (argv, { page, db }) => {
   const oldOffers = await db.models.Offer.find()
 
   await offers.asyncForEach(async (offer) => {
-    if (offer.archive || !offer.name.includes('referral')) {
+    if (offer.archive) {
       return
     }
 
