@@ -185,6 +185,14 @@
     - '#blq-content > .layoutcontainer:nth-child(7) .row .column:nth-child(1)'
     - '.terms-content-wrapper p'
 -
+  name: CIBC Dividend VI - promo link
+  url: https://www.cibc.com/en/special-offers/cash-back-offer.html
+  select:
+    - '.featurebannercontainer .headline-l'
+    - '.featurebannercontainer .banner-body-copy'
+    - '.slickslide-inner:contains("Visa Infinite") .longformtext:contains("Annual fee")'
+    - '.terms-content-wrapper p'
+-
   name: HSBC Rewards WE
   url: https://www.hsbc.ca/credit-cards/products/world-elite/
   select:
