@@ -21,9 +21,6 @@ products.sort((a, b) =>
 )
 products.forEach((product) => {
   product.slug = stringToSlug(product.name).toLowerCase()
-  if (product.url.match(/^REFERRAL_URL_/)) {
-    product.url = process.env[product.url]
-  }
 })
 
 app.use(cors())
@@ -39,6 +36,12 @@ app.get('/', async (req, res) => {
         .filter((offer) => offer.name === product.name),
     }))
   )
+})
+
+app.get('/r/:slug', async (req, res) => {
+  const card = req.params.slug.replace(/-/g, '_').toUpperCase()
+  const url = process.env[`REFERRAL_URL_${card}`]
+  res.redirect(url)
 })
 
 const server = app.listen(PORT, () => {

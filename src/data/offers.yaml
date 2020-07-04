@@ -494,21 +494,21 @@
     - '.margin-2-b .h2:contains("Fee Information") + div'
 -
   name: AMEX Business Platinum - referral
-  url: REFERRAL_URL_AMEX_BIZ_PLATINUM
+  url: REFERRAL_URL_AMEX_BUSINESS_PLATINUM
   click: '#welcomeBtn'
   select:
     - 'h1.heading-6 + p'
     - '.margin-2-b .h2:contains("Fee Information") + div'
 -
   name: AMEX Business Gold - referral
-  url: REFERRAL_URL_AMEX_BIZ_GOLD
+  url: REFERRAL_URL_AMEX_BUSINESS_GOLD
   click: '#welcomeBtn'
   select:
     - 'h1.heading-6 + p'
     - '.margin-2-b .h2:contains("Fee Information") + div'
 -
   name: AMEX Business Edge - referral
-  url: REFERRAL_URL_AMEX_BIZ_EDGE
+  url: REFERRAL_URL_AMEX_BUSINESS_EDGE
   click: '#welcomeBtn'
   select:
     - 'h1.heading-6 + p'
@@ -522,7 +522,7 @@
     - '.margin-2-b .h2:contains("Fee Information") + div'
 -
   name: AMEX Bonvoy Business - referral
-  url: REFERRAL_URL_AMEX_BONVOY_BIZ
+  url: REFERRAL_URL_AMEX_BONVOY_BUSINESS
   click: '#welcomeBtn'
   select:
     - 'h1.heading-6 + p'
