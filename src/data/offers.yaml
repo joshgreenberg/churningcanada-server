@@ -462,3 +462,52 @@
   name: AMEX Gold & AMEX Business Gold - CPA
   url: https://www.americanexpress.com/en-ca/credit-cards/offers/cpa/
   select: '.termAndCondition__item'
+-
+  name: AMEX Cobalt - referral
+  url: REFERRAL_URL_AMEX_COBALT
+  click: '#welcomeBtn'
+  select:
+    - 'h1.heading-6 + p'
+    - '.margin-2-b .h2:contains("Fee Information") + div'
+-
+  name: AMEX Gold - referral
+  url: REFERRAL_URL_AMEX_GOLD
+  click: '#welcomeBtn'
+  select:
+    - 'h1.heading-6 + p'
+    - '.margin-2-b .h2:contains("Fee Information") + div'
+-
+  name: AMEX Business Platinum - referral
+  url: REFERRAL_URL_AMEX_BIZ_PLATINUM
+  click: '#welcomeBtn'
+  select:
+    - 'h1.heading-6 + p'
+    - '.margin-2-b .h2:contains("Fee Information") + div'
+-
+  name: AMEX Business Gold - referral
+  url: REFERRAL_URL_AMEX_BIZ_GOLD
+  click: '#welcomeBtn'
+  select:
+    - 'h1.heading-6 + p'
+    - '.margin-2-b .h2:contains("Fee Information") + div'
+-
+  name: AMEX Business Edge - referral
+  url: REFERRAL_URL_AMEX_BIZ_EDGE
+  click: '#welcomeBtn'
+  select:
+    - 'h1.heading-6 + p'
+    - '.margin-2-b .h2:contains("Fee Information") + div'
+-
+  name: AMEX Bonvoy - referral
+  url: REFERRAL_URL_AMEX_BONVOY
+  click: '#welcomeBtn'
+  select:
+    - 'h1.heading-6 + p'
+    - '.margin-2-b .h2:contains("Fee Information") + div'
+-
+  name: AMEX Bonvoy Business - referral
+  url: REFERRAL_URL_AMEX_BONVOY_BIZ
+  click: '#welcomeBtn'
+  select:
+    - 'h1.heading-6 + p'
+    - '.margin-2-b .h2:contains("Fee Information") + div'

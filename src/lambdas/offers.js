@@ -12,8 +12,11 @@ const stringToSlug = (str) =>
     .replace(/-+/g, '-')
 
 const virtualDOM = async (offer, page) => {
+  const url = offer.url.match(/^REFERRAL_URL_/)
+    ? process.env[offer.url]
+    : offer.url
   if (offer.click || offer.hover) {
-    await page.goto(offer.url)
+    await page.goto(url)
     if (offer.click) {
       await page.waitForSelector(offer.click)
       await page.click(offer.click).catch(() => {})
@@ -26,7 +29,7 @@ const virtualDOM = async (offer, page) => {
     }
     return cheerio.load(await page.content())
   } else {
-    const result = await axios.get(offer.url)
+    const result = await axios.get(url)
     return cheerio.load(result.data)
   }
 }
@@ -97,7 +100,7 @@ const main = async (argv, { page, db }) => {
   const oldOffers = await db.models.Offer.find()
 
   await offers.asyncForEach(async (offer) => {
-    if (offer.archive) {
+    if (offer.archive || !offer.name.includes('referral')) {
       return
     }
 

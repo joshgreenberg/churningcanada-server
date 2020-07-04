@@ -21,6 +21,9 @@ products.sort((a, b) =>
 )
 products.forEach((product) => {
   product.slug = stringToSlug(product.name).toLowerCase()
+  if (product.url.match(/^REFERRAL_URL_/)) {
+    product.url = process.env[product.url]
+  }
 })
 
 app.use(cors())
