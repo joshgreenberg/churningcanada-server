@@ -8,7 +8,7 @@ const db = require('./db')
 
 const PORT = process.env.PORT || 3000
 
-const stringToSlug = (str) => str.replace(/\s+/g, '-').replace(/-+/g, '-')
+const stringToSlug = (str) => str.replace(/[&\s]+/g, '-').replace(/-+/g, '-')
 
 const file = fs.readFileSync(`${__dirname}/data/offers.yaml`, 'utf8')
 const products = yaml.safeLoad(file)

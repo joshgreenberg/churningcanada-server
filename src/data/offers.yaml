@@ -114,26 +114,22 @@
     - '.why-amex__copy'
     - 'ol.orderlist li'
 -
-  name: BMO Air Miles WE
+  name: BMO Air Miles WE & BMO Rewards WE & BMO Cashback WE
   url: https://www.bmo.com/popups/main/personal/credit-cards/terms-and-conditions-en.html
   select:
     - 'ul p'
     - '.fakenote'
     - 'ol li'
 -
-  name: BMO Rewards WE
-  url: https://www.bmo.com/popups/main/personal/credit-cards/terms-and-conditions-en.html
+  name: BMO Cashback WE - promo link
+  url: https://www.bmo.com/main/personal/credit-cards/2-cashback-offers/
   select:
-    - 'ul p'
-    - '.fakenote'
-    - 'ol li'
+    - '#terms-overlay li'
 -
-  name: BMO Cashback WE
-  url: https://www.bmo.com/popups/main/personal/credit-cards/terms-and-conditions-en.html
+  name: BMO Air Miles WE - promo link
+  url: https://www.bmo.com/main/personal/credit-cards/single/air-miles-world-elite-dream/
   select:
-    - 'ul p'
-    - '.fakenote'
-    - 'ol li'
+    - '#terms-overlay li'
 -
   name: BMO Air Miles Business
   url: https://www.bmo.com/main/business/credit-cards/bmo-airmiles-business-mastercard/
@@ -459,18 +455,10 @@
   url: https://www.greatcanadianrebates.ca/details/Tangerine-World-Mastercard/
   select: '#rebate b'
 -
-  name: AMEX Cobalt - Perkopolis
+  name: AMEX Cobalt & AMEX Gold - Perkopolis
   url: https://www.americanexpress.com/ca/en/credit-cards/compare-cobalt-card-and-gold-rewards-card/
   select: '.termAndCondition__item'
 -
-  name: AMEX Gold - Perkopolis
-  url: https://www.americanexpress.com/ca/en/credit-cards/compare-cobalt-card-and-gold-rewards-card/
-  select: '.termAndCondition__item'
--
-  name: AMEX Gold - CPA
-  url: https://www.americanexpress.com/en-ca/credit-cards/offers/cpa/
-  select: '.termAndCondition__item'
--
-  name: AMEX Business Gold - CPA
+  name: AMEX Gold & AMEX Business Gold - CPA
   url: https://www.americanexpress.com/en-ca/credit-cards/offers/cpa/
   select: '.termAndCondition__item'
