@@ -329,6 +329,14 @@
     - '#product-header-cards .bns--card.f2'
     - '#legal .legal-text-item .col-text'
 -
+  name: Scotiabank Passport VI Business
+  url: https://www.scotiabank.com/ca/en/small-business/business-banking/credit-cards/scotiabank-passport-visa-infinite-business-card.html
+  select:
+    - '#product-header-title .bns--title small'
+    - '#product-header-cards .bns--card.f1'
+    - '#product-header-cards .bns--card.f2'
+    - '#content-legal .legal__text__item p'
+-
   name: Tangerine World
   url: https://www.tangerine.ca/en/products/spending/creditcard/world/
   select:
@@ -427,6 +435,10 @@
   url: https://www.greatcanadianrebates.ca/details/CIBC-Dividend-Visa-Infinite/
   select: '#rebate b'
 -
+  name: HSBC Rewards WE - GCR
+  url: https://www.greatcanadianrebates.ca/details/HSBC-World-Elite/
+  select: '#rebate b'
+-
   name: MBNA Alaska PP - GCR
   url: https://www.greatcanadianrebates.ca/details/MBNA-Alaska-Airlines-Platnium/
   select: '#rebate b'
@@ -437,6 +449,10 @@
 -
   name: MBNA Best Western - GCR
   url: https://www.greatcanadianrebates.ca/details/MBNA-BestWestern/
+  select: '#rebate b'
+-
+  name: MBNA Rewards WE - GCR
+  url: https://www.greatcanadianrebates.ca/details/MBNA-Rewards-World-Elite/
   select: '#rebate b'
 -
   name: Scotiabank Gold Amex - GCR
