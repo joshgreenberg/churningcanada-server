@@ -23,19 +23,54 @@ products.forEach((product) => {
   product.slug = stringToSlug(product.name).toLowerCase()
 })
 
-app.use(cors())
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+  })
+)
 app.use(bodyParser.json())
 
-app.get('/', async (req, res) => {
-  const offers = await db.models.Offer.find()
+app.get('/offers', async (req, res) => {
+  const allOffers = await db.models.Offer.find()
+  const offers = allOffers
+    .sort((a, b) => (b.date > a.date ? 1 : b.date < a.date ? -1 : 0))
+    .reduce((acc, cur) => {
+      if (!acc.some((o) => o.name === cur.name)) {
+        acc.push(cur)
+      }
+      return acc
+    }, [])
   res.json(
-    products.map((product) => ({
-      ...product,
-      offers: offers
-        .sort((a, b) => (b.date > a.date ? 1 : b.date < a.date ? -1 : 0))
-        .filter((offer) => offer.name === product.name),
-    }))
+    products
+      .map((product) => {
+        const offer = offers.find((o) => o.name === product.name)
+        if (offer) {
+          return {
+            name: product.name,
+            url: product.url,
+            slug: product.slug,
+            date: offer.date,
+            expired: offer.footnotes.length == 0,
+          }
+        } else {
+          return null
+        }
+      })
+      .filter((p) => p)
   )
+})
+
+app.get('/offers/:slug', async (req, res) => {
+  const slug = req.params.slug
+  const product = products.find((p) => p.slug === slug)
+  if (product) {
+    const offers = await db.models.Offer.find({ name: product.name }).sort({
+      date: -1,
+    })
+    res.json(offers)
+  } else {
+    res.send(404)
+  }
 })
 
 app.get('/r/:slug', async (req, res) => {
