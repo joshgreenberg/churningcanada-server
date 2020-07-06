@@ -78,7 +78,7 @@ const sendTelegram = async (updatedOffers, newOffers) => {
 }
 
 const sendSlack = async (updatedOffers, newOffers) => {
-  await axios.post(process.env.SLACK_WEBHOOK_URL, {
+  await axios.post(process.env.SLACK_WEBHOOK_OFFERS, {
     text: buildMessage(updatedOffers, newOffers, formatSlack),
   })
 }
@@ -87,7 +87,7 @@ const dispatch = async (updatedOffers, newOffers) => {
   if (process.env.TELEGRAM_BOT_API_TOKEN) {
     await sendTelegram(updatedOffers, newOffers)
   }
-  if (process.env.SLACK_WEBHOOK_URL) {
+  if (process.env.SLACK_WEBHOOK_OFFERS) {
     await sendSlack(updatedOffers, newOffers)
   }
 }
@@ -101,9 +101,10 @@ const main = async (argv, { page, db }) => {
   const updatedOffers = []
   const newOffers = []
   const oldOffers = await db.models.Offer.find()
+  const today = moment().format('YYYY-MM-DD')
 
   await offers.asyncForEach(async (offer) => {
-    if (offer.archive) {
+    if (offer.archive || oldOffers.some((o) => o.date == today)) {
       return
     }
 
@@ -190,7 +191,6 @@ const main = async (argv, { page, db }) => {
       newOffers.push(offer)
     }
 
-    const today = moment().format('YYYY-MM-DD')
     await db.models.Offer.create({
       name: offer.name,
       date: today,

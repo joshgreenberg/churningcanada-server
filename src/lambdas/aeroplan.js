@@ -5,7 +5,7 @@ const moment = require('moment')
 const {
   TELEGRAM_BOT_API_TOKEN,
   TELEGRAM_CHAT_ID,
-  SLACK_WEBHOOK_URL,
+  SLACK_WEBHOOK_ESTORE,
 } = process.env
 
 const portal = 'Aeroplan'
@@ -70,7 +70,7 @@ const sendTelegram = async (diff) => {
 }
 
 const sendSlack = async (diff) => {
-  await axios.post(SLACK_WEBHOOK_URL, {
+  await axios.post(SLACK_WEBHOOK_ESTORE, {
     text: buildMessage(diff, formatSlack),
   })
 }
@@ -79,7 +79,7 @@ const dispatch = async (diff) => {
   if (TELEGRAM_BOT_API_TOKEN && TELEGRAM_CHAT_ID) {
     await sendTelegram(diff)
   }
-  if (SLACK_WEBHOOK_URL) {
+  if (SLACK_WEBHOOK_ESTORE) {
     await sendSlack(diff)
   }
 }

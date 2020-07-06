@@ -1,19 +1,6 @@
 const puppeteer = require('puppeteer')
 const yargs = require('yargs')
-const argv = yargs
-  .option('dispatch', { type: 'boolean' })
-  .option('offers', { type: 'boolean' })
-  .option('allPortals', { type: 'boolean' })
-  .option('aeroplan', { type: 'boolean' })
-  .option('alaska', { type: 'boolean' })
-  .option('american', { type: 'boolean' }).argv
-
-const portals = ['aeroplan', 'alaska', 'american']
-if (argv.allPortals) {
-  portals.forEach((portal) => {
-    argv[portal] = true
-  })
-}
+const argv = yargs.option('dispatch', { type: 'boolean' })
 
 const main = async () => {
   const db = require('../src/db')
@@ -51,33 +38,6 @@ const main = async () => {
     console.log('Scanning offers for updates...')
     try {
       await require('../src/lambdas/offers')(argv, injected)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  if (argv.aeroplan) {
-    console.log('Scanning Aeroplan for updates...')
-    try {
-      await require('../src/lambdas/aeroplan')(argv, injected)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  if (argv.alaska) {
-    console.log('Scanning Alaska for updates...')
-    try {
-      await require('../src/lambdas/alaska')(argv, injected)
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  if (argv.american) {
-    console.log('Scanning AAdvantage for updates...')
-    try {
-      await require('../src/lambdas/american')(argv, injected)
     } catch (err) {
       console.log(err)
     }
