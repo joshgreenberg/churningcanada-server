@@ -34,13 +34,11 @@ const main = async () => {
 
   const injected = { page, db }
 
-  if (argv.offers) {
-    console.log('Scanning offers for updates...')
-    try {
-      await require('../src/lambdas/offers')(argv, injected)
-    } catch (err) {
-      console.log(err)
-    }
+  console.log('Scanning offers for updates...')
+  try {
+    await require('../src/lambdas/offers')(argv, injected)
+  } catch (err) {
+    console.log(err)
   }
 
   await browser.close()
