@@ -20,13 +20,16 @@ const virtualDOM = async (offer, page) => {
     if (offer.click) {
       await page.waitForSelector(offer.click)
       await page.click(offer.click).catch(() => {})
-      await page.waitFor(1000)
     }
     if (offer.hover) {
       await page.waitForSelector(offer.hover)
       await page.hover(offer.hover).catch(() => {})
-      await page.waitFor(1000)
     }
+    const selects =
+      typeof offer.select == 'string' ? [offer.select] : offer.select
+    selects.forEach((select) => {
+      page.waitForSelector(select, { timeout: 3000 })
+    })
     return cheerio.load(await page.content())
   } else {
     const result = await axios.get(url)
