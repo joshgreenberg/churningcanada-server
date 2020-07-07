@@ -18,12 +18,12 @@ const virtualDOM = async (offer, page) => {
   if (offer.click || offer.hover) {
     await page.goto(url)
     if (offer.click) {
-      await page.waitForSelector(offer.click)
-      await page.click(offer.click).catch(() => {})
+      await page.waitForSelector(offer.click, { timeout: 3000 })
+      await page.click(offer.click)
     }
     if (offer.hover) {
-      await page.waitForSelector(offer.hover)
-      await page.hover(offer.hover).catch(() => {})
+      await page.waitForSelector(offer.hover, { timeout: 3000 })
+      await page.hover(offer.hover)
     }
     const selects =
       typeof offer.select == 'string' ? [offer.select] : offer.select
